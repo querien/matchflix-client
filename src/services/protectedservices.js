@@ -1,6 +1,6 @@
 import axios from "axios";
-import successStatus from "./auth";
-import internalServerError from "./auth";
+// import successStatus from "./auth";
+// import internalServerError from "./auth";
 
 const settingService = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}/`,
@@ -8,7 +8,7 @@ const settingService = axios.create({
 
 export function settings(credentials) {
   return settingService
-    .post("/settings", credentials)
-    .then(successStatus)
-    .catch(internalServerError);
+    .put("/settings", credentials)
+    .then(console.log("the function reaches this"));
+  // .catch(internalServerError);
 }
