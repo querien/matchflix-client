@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 function HomePage(props) {
   return (
-
       <div className="App">
       <Link to="/" className="nav__projectName">
         Matchflix
