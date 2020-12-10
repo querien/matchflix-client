@@ -4,6 +4,10 @@ import LoadingComponent from "./components/Loading";
 import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./pages/HomePage";
 import LogIn from "./pages/LogIn";
+import Login from "./pages/LogIn";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import Movienight from "./pages/Movienight";
 import ProtectedPage from "./pages/ProtectedPage";
 import Signup from "./pages/Signup";
 import NormalRoute from "./routing-components/NormalRoute";
@@ -81,9 +85,16 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <Navbar handleLogout={this.handleLogout} user={this.state.user} />
+        {/* // */}
         <Switch>
-          <NormalRoute exact path={PATHS.HOMEPAGE} component={HomePage} />
+          <NormalRoute
+            exact
+            path={PATHS.HOMEPAGE}
+            component={HomePage}
+            user={this.state.user}
+            handleLogout={this.handleLogout}
+          />
+
           <NormalRoute
             exact
             path={PATHS.SIGNUPPAGE}
@@ -100,6 +111,26 @@ class App extends React.Component {
             exact
             path={PATHS.PROTECTEDPAGE}
             component={ProtectedPage}
+            user={this.state.user}
+          />
+          <ProtectedRoute
+            exact
+            path={PATHS.PROFILE}
+            component={Profile}
+            user={this.state.user}
+          />
+
+          <ProtectedRoute
+            exact
+            path={"/settings"}
+            component={Settings}
+            user={this.state.user}
+          />
+
+          <ProtectedRoute
+            exact
+            path={"/movienight"}
+            component={Movienight}
             user={this.state.user}
           />
         </Switch>
