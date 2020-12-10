@@ -12,7 +12,7 @@ class Profile extends Component {
                <h1> Hello there {this.props.user.username}!</h1> 
 
                <Link to={"/settings"}>Edit your profile</Link>
-               <Link to={"/"}>Create a movie night</Link>
+               <Link to={"/movienight"}>Create a movie night</Link>
                 <Link to={"/"}>Join a movie night</Link>
 
             </div>

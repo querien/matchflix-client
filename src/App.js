@@ -7,6 +7,7 @@ import LogIn from "./pages/LogIn";
 import Login from "./pages/LogIn";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import Movienight from "./pages/Movienight";
 import ProtectedPage from "./pages/ProtectedPage";
 import Signup from "./pages/Signup";
 import NormalRoute from "./routing-components/NormalRoute";
@@ -123,6 +124,13 @@ class App extends React.Component {
             exact
             path={"/settings"}
             component={Settings}
+            user={this.state.user}
+          />
+
+          <ProtectedRoute
+            exact
+            path={"/movienight"}
+            component={Movienight}
             user={this.state.user}
           />
         </Switch>

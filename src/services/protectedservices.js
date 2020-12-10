@@ -12,3 +12,17 @@ export function settings(credentials) {
     .then(console.log("the function reaches this"));
   // .catch(internalServerError);
 }
+
+export function movienightCreate(movienightData) {
+  return settingService
+    .post("/movienight", movienightData)
+    .then(console.log("the data was posted to the backend"));
+}
+
+export function movienightQuery(data) {
+  return settingService
+    .put("/movienight", data)
+    .then(
+      console.log("the rest of the data was updated & posted to the backend")
+    );
+}
