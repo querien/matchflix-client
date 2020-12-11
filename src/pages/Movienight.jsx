@@ -49,12 +49,12 @@ handleInputChange = (event) => {
 render() {
         if (this.state.roomCreated) {
             return (<form onSubmit={this.handleQuery } action="">
-            <label htmlFor="genre">Which genre? </label>
-            <input name="genre" onChange={this.handleInputChange} type="text"/>
+            <label htmlFor="genre">Which genre? </label> 
+            <input name="genre" onChange={this.handleInputChange} type="text"/> <br/>
             <label htmlFor="numberMovies">How many movies?</label>
-            <input name="numberMovies" onChange={this.handleInputChange} type="number"/>
+            <input name="numberMovies" onChange={this.handleInputChange} type="number"/> <br/>
             <label htmlFor="imdbScore">Minimum IMDB rating</label>
-            <input name="imdbScore" onChange={this.handleInputChange} type="number"/>
+            <input name="imdbScore" onChange={this.handleInputChange} type="number"/> <br/>
             <button>Generate movies!</button>
             
         </form>)
@@ -67,7 +67,7 @@ render() {
                     <label htmlFor="roomPassword">Enter your room password</label>
                     <input name = "roomPassword" onChange={this.handleInputChange} type="password" placeholder="Password"/><br/>
                     <label htmlFor="participants">Enter number of participants</label>
-                    <input name = "participants" onChange={this.handleInputChange} type="number"/>
+                    <input name = "participants" onChange={this.handleInputChange} type="number"/> <br/> 
                     <button type="submit" >Create movie night!</button>
                 </form>
             </div>

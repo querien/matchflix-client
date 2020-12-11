@@ -18,11 +18,3 @@ export function movienightCreate(movienightData) {
     console.log(response);
   });
 }
-
-// export function movienightQuery(data) {
-//   return settingService
-//     .put("/movienight", data)
-//     .then(
-//       console.log("the rest of the data was updated & posted to the backend")
-//     );
-// }
