@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import {movienightCreate} from "../services/protectedservices"
 import {movienightQuery} from "../services/protectedservices"
+import {genres} from "../genres.json"
+
+const importedGenres = genres;
+const importedGenreArr = (Object.keys(importedGenres[0]))
+
 class Movienight extends Component {
 state =  {
     roomCreated: false,
@@ -12,7 +17,6 @@ state =  {
     imdbScore: 0,
     participants:""
 }
-
 
 
 handleCreateNight = (event) =>  {
@@ -49,12 +53,17 @@ handleInputChange = (event) => {
 render() {
         if (this.state.roomCreated) {
             return (<form onSubmit={this.handleQuery } action="">
-            <label htmlFor="genre">Which genre? </label>
-            <input name="genre" onChange={this.handleInputChange} type="text"/>
+            <label htmlFor="genre">Select the genre</label> 
+            <select onChange={this.handleInputChange} name="genre" id="genre">
+            {importedGenreArr.map((element)=> {
+             return <option key={element} value={element}>{element}</option>
+            })}
+            </select><br/>
+
             <label htmlFor="numberMovies">How many movies?</label>
-            <input name="numberMovies" onChange={this.handleInputChange} type="number"/>
+            <input name="numberMovies" onChange={this.handleInputChange} type="number"/> <br/>
             <label htmlFor="imdbScore">Minimum IMDB rating</label>
-            <input name="imdbScore" onChange={this.handleInputChange} type="number"/>
+            <input name="imdbScore" onChange={this.handleInputChange} type="number"/> <br/>
             <button>Generate movies!</button>
             
         </form>)
@@ -67,7 +76,7 @@ render() {
                     <label htmlFor="roomPassword">Enter your room password</label>
                     <input name = "roomPassword" onChange={this.handleInputChange} type="password" placeholder="Password"/><br/>
                     <label htmlFor="participants">Enter number of participants</label>
-                    <input name = "participants" onChange={this.handleInputChange} type="number"/>
+                    <input name = "participants" onChange={this.handleInputChange} type="number"/> <br/> 
                     <button type="submit" >Create movie night!</button>
                 </form>
             </div>
