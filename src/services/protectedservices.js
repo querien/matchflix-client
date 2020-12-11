@@ -15,6 +15,9 @@ export function settings(credentials) {
 
 export function movienightCreate(movienightData) {
   return settingService.post("/movienight", movienightData).then((response) => {
-    console.log(response);
+    console.log(
+      "this is the response from the server, in our client",
+      response
+    );
   });
 }

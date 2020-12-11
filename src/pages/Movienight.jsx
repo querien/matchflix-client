@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import {movienightCreate} from "../services/protectedservices"
 import {movienightQuery} from "../services/protectedservices"
+import {genres} from "../genres.json"
+
+const importedGenres = genres;
+const importedGenreArr = (Object.keys(importedGenres[0]))
+
 class Movienight extends Component {
 state =  {
     roomCreated: false,
@@ -12,7 +17,6 @@ state =  {
     imdbScore: 0,
     participants:""
 }
-
 
 
 handleCreateNight = (event) =>  {
@@ -49,8 +53,13 @@ handleInputChange = (event) => {
 render() {
         if (this.state.roomCreated) {
             return (<form onSubmit={this.handleQuery } action="">
-            <label htmlFor="genre">Which genre? </label> 
-            <input name="genre" onChange={this.handleInputChange} type="text"/> <br/>
+            <label htmlFor="genre">Select the genre</label> 
+            <select onChange={this.handleInputChange} name="genre" id="genre">
+            {importedGenreArr.map((element)=> {
+             return <option key={element} value={element}>{element}</option>
+            })}
+            </select><br/>
+
             <label htmlFor="numberMovies">How many movies?</label>
             <input name="numberMovies" onChange={this.handleInputChange} type="number"/> <br/>
             <label htmlFor="imdbScore">Minimum IMDB rating</label>
