@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { movienightCreate } from "../services/protectedservices";
 import { movienightQuery } from "../services/protectedservices";
 import { genres } from "../genres.json";
@@ -50,6 +51,11 @@ class Movienight extends Component {
     });
   };
 
+  redirect = () => {
+    // return <Redirect to={`/movienight/${this.state.roomName}`}
+    this.props.history.push(`/movienight/${this.state.roomName}`);
+  };
+
   render() {
     if (this.state.roomCreated) {
       return (
@@ -83,7 +89,7 @@ class Movienight extends Component {
               type="number"
             />{" "}
             <br />
-            <button>Generate movies!</button>
+            <button onClick={() => this.redirect()}>Generate movies!</button>
           </form>
         </div>
       );
@@ -99,7 +105,7 @@ class Movienight extends Component {
               onChange={this.handleInputChange}
               type="text"
               placeholder="Room name"
-            />{" "}
+            />
             <br />
             <label htmlFor="roomPassword">Enter your room password</label>
             <input
@@ -114,7 +120,7 @@ class Movienight extends Component {
               name="participants"
               onChange={this.handleInputChange}
               type="number"
-            />{" "}
+            />
             <br />
             <button type="submit">Create movie night!</button>
           </form>

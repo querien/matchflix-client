@@ -1,12 +1,12 @@
 import logo from "../logo.svg";
 import "../App.css";
-import Login from "../pages/LogIn"
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Login from "../pages/LogIn";
+import React from "react";
+import { Link } from "react-router-dom";
 
 function HomePage(props) {
   return (
-      <div className="App">
+    <div className="App">
       <Link to="/" className="nav__projectName">
         Matchflix
       </Link>
@@ -29,11 +29,11 @@ function HomePage(props) {
             <Link to="/auth/login" className="authLink">
               Log In
             </Link>
-            </>
+          </>
         )}
+      </div>
     </div>
-
-   </div>)};
-
+  );
+}
 
 export default HomePage;
