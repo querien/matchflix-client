@@ -27,7 +27,6 @@ class Movienight extends Component {
 
   handleQuery = (event) => {
     event.preventDefault();
-
     const movieQueryData = {
       numberMovies: this.state.numberMovies,
       genre: this.state.genre,
@@ -37,8 +36,11 @@ class Movienight extends Component {
       roomPassword: this.state.roomPassword,
       participants: this.state.participants,
     };
-    movienightCreate(movieQueryData).then((res) => {
-      console.log(res);
+    movienightCreate(movieQueryData).then((response) => {
+      console.log("This is the response in the JSX file", response);
+      let dataReturned = JSON.parse(response.config.data);
+      console.log(dataReturned.host);
+      this.redirect();
     });
   };
 
@@ -48,6 +50,10 @@ class Movienight extends Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  redirect = () => {
+    this.props.history.push(`/room/${this.state.roomName}`);
   };
 
   render() {
@@ -99,7 +105,7 @@ class Movienight extends Component {
               onChange={this.handleInputChange}
               type="text"
               placeholder="Room name"
-            />{" "}
+            />
             <br />
             <label htmlFor="roomPassword">Enter your room password</label>
             <input
@@ -114,7 +120,7 @@ class Movienight extends Component {
               name="participants"
               onChange={this.handleInputChange}
               type="number"
-            />{" "}
+            />
             <br />
             <button type="submit">Create movie night!</button>
           </form>
