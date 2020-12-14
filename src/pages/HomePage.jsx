@@ -8,7 +8,7 @@ function HomePage(props) {
   return (
     <div className="App">
       <Link to="/" className="nav__projectName">
-        Matchflix
+        Matchflix TEST
       </Link>
 
       <div className="nav__authLinks">
