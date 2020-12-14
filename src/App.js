@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./pages/HomePage";
 import LogIn from "./pages/LogIn";
 import Login from "./pages/LogIn";
+import Moviedisplay from "./pages/Moviedisplay";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Movienight from "./pages/Movienight";
@@ -95,7 +96,6 @@ class App extends React.Component {
             user={this.state.user}
             handleLogout={this.handleLogout}
           />
-
           <NormalRoute
             exact
             path={PATHS.SIGNUPPAGE}
@@ -126,19 +126,23 @@ class App extends React.Component {
             component={Profile}
             user={this.state.user}
           />
-
           <ProtectedRoute
             exact
             path={"/settings"}
             component={Settings}
             user={this.state.user}
           />
-
           <ProtectedRoute
             exact
             path={"/movienight"}
             component={Movienight}
             user={this.state.user}
+          />
+          <ProtectedRoute
+            exact
+            path={"/room/:id"}
+            user={this.state.user}
+            component={Moviedisplay}
           />
         </Switch>
       </div>
