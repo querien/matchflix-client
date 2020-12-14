@@ -15,14 +15,9 @@ export function settings(credentials) {
 
 export function movienightCreate(movienightData) {
   return settingService.post("/movienight", movienightData).then((response) => {
-    console.log(response);
+    console.log(
+      "this is the response from the server, in our client",
+      response
+    );
   });
 }
-
-// export function movienightQuery(data) {
-//   return settingService
-//     .put("/movienight", data)
-//     .then(
-//       console.log("the rest of the data was updated & posted to the backend")
-//     );
-// }
