@@ -4,8 +4,6 @@ class Moviedisplay extends Component {
   state = {
     movieArr: [],
     score: [],
-    element: 0,
-    counter: 0,
   };
 
   componentDidMount() {}
@@ -16,40 +14,22 @@ class Moviedisplay extends Component {
 
   //The right button both increases score property by 1 and goes the next element of the loop
   handleRightButton() {
-    this.setState({
-      // element: element + 1,
-      // score: { title: "String", score: 0 },
-    });
+    this.setState;
+
+    return;
   }
 
   //The Left button only renders the next element
   handleLeftButton() {
-    this.setState({
-      counter: this.state.counter + 1,
-    });
+    return;
   }
 
   render() {
     return (
       <div>
         <h2>The movies are supposed to be displayed here</h2>
-        <p>Counter: {this.state.counter}</p>
-        <button onClick={() => this.handleLeftButton()}>
-          Increase counter{" "}
-        </button>
+        <button onClick={() => this.handleRightButton()}>Dislike </button>
         <button onClick={() => this.handleRightButton()}>Like</button>
-
-        {/* Take an array of movieobjects, loop over them using map and for in 
-array.map(element, index => {
-  for property in element {
-    <img> 
-    <title> 
-    <description> 
-}   
-
-
-
-*/}
       </div>
     );
   }
