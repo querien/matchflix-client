@@ -2,17 +2,17 @@ import "../App.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
+import logo from "../MATCHFLIX.png";
 
 function HomePage(props) {
   return (
     <div className="App">
-      <Link to="/" className="nav__projectName">
-        Matchflix TEST
-      </Link>
+      <Link to="/" className="nav__projectName"></Link>
 
       <div className="nav__authLinks">
         {props.user ? (
           <>
+            <img src={logo} alt="Matchflix" />
             <Link to="/protected" className="buttonClass authLink">
               Protected Page
             </Link>
@@ -26,10 +26,10 @@ function HomePage(props) {
           </>
         ) : (
           <>
-            <Link to="/auth/signup" className="authLink">
+            <Link to="/auth/signup" className=" buttonClass authLink">
               Signup
             </Link>
-            <Link to="/auth/login" className="authLink">
+            <Link to="/auth/login" className="buttonClass authLink">
               Log In
             </Link>
           </>
