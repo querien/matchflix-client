@@ -1,6 +1,4 @@
-import logo from "../logo.svg";
 import "../App.css";
-import Login from "../pages/LogIn";
 import React from "react";
 import { Link } from "react-router-dom";
 
