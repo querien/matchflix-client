@@ -10,11 +10,13 @@ import Movienight from "./pages/Movienight";
 import ProtectedPage from "./pages/ProtectedPage";
 import Room from "./pages/Room";
 import Signup from "./pages/Signup";
+import Joinroom from "./pages/Joinroom";
 import NormalRoute from "./routing-components/NormalRoute";
 import ProtectedRoute from "./routing-components/ProtectedRoute";
 import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
 import { movienightCreate } from "./services/protectedservices";
+import { joinRoom } from "./services/protectedservices";
 
 class App extends React.Component {
   state = {
@@ -28,6 +30,7 @@ class App extends React.Component {
     imdbScore: 0,
     participants: 0,
     roomID: "",
+    joinErr: "",
   };
 
   componentDidMount = () => {
@@ -72,10 +75,22 @@ class App extends React.Component {
         numberMovies: response.data.movieArray.length,
         genre: response.data.genre,
         imdbScore: response.data.imdbScore,
-
         roomID: response.data._id,
         queryHandled: true,
       });
+    });
+  };
+
+  handleJoinNight = (event) => {
+    event.preventDefault();
+    const roomData = {
+      roomName: this.state.roomName,
+      roomPassword: this.state.roomPassword,
+    };
+    return joinRoom(roomData).then((response) => {
+      response.roomID
+        ? this.setState({ roomID: response.roomID })
+        : this.setState({ joinErr: response.joinErr });
     });
   };
 
@@ -188,6 +203,16 @@ class App extends React.Component {
             path={"/room/:id"}
             user={this.state.user}
             component={Moviedisplay}
+            {...this.state}
+          />
+
+          <ProtectedRoute
+            exact
+            path={"/joinroom"}
+            component={Joinroom}
+            user={this.state.user}
+            handleJoinNight={this.handleJoinNight}
+            handleInputChange={this.handleInputChange}
             {...this.state}
           />
         </Switch>

@@ -9,7 +9,7 @@ class Profile extends Component {
 
         <Link to={"/settings"}>Edit your profile</Link>
         <Link to={"/movienight"}>Create a movie night</Link>
-        <Link to={"/"}>Join a movie night</Link>
+        <Link to={"/joinroom"}>Join a movie night</Link>
       </div>
     );
   }

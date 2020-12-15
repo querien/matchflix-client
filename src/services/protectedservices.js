@@ -18,3 +18,9 @@ export function movienightCreate(movienightData) {
     return response;
   });
 }
+
+export function joinRoom(roomData) {
+  return settingService.post("/joinroom", roomData).then((response) => {
+    return response;
+  });
+}

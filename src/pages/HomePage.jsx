@@ -1,6 +1,7 @@
 import "../App.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import Profile from "./Profile";
 
 function HomePage(props) {
   return (
@@ -18,6 +19,7 @@ function HomePage(props) {
             <button className="nav-logoutbtn" onClick={props.handleLogout}>
               Logout
             </button>
+            <Profile user={props.user} />
           </>
         ) : (
           <>
