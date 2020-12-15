@@ -1,10 +1,8 @@
 import React from "react";
 import { Switch } from "react-router-dom";
 import LoadingComponent from "./components/Loading";
-import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./pages/HomePage";
 import LogIn from "./pages/LogIn";
-import Login from "./pages/LogIn";
 import Moviedisplay from "./pages/Moviedisplay";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
