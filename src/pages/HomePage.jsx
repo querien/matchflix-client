@@ -13,10 +13,13 @@ function HomePage(props) {
       <div className="nav__authLinks">
         {props.user ? (
           <>
-            <Link to="/protected" className="authLink">
+            <Link to="/protected" className="buttonClass authLink">
               Protected Page
             </Link>
-            <button className="nav-logoutbtn" onClick={props.handleLogout}>
+            <button
+              className="nav-logoutbtn buttonClass"
+              onClick={props.handleLogout}
+            >
               Logout
             </button>
             <Profile user={props.user} />
