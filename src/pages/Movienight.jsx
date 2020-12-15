@@ -6,16 +6,8 @@ const importedGenres = genres;
 const importedGenreArr = Object.keys(importedGenres[0]);
 
 class Movienight extends Component {
-  state = {
+  props = {
     roomCreated: false,
-    roomName: "",
-    roomPassword: "",
-    movieArray: [],
-    numberMovies: 0,
-    genre: "",
-    imdbScore: 0,
-    participants: 0,
-    roomID: "",
     queryHandled: false,
   };
 
@@ -27,143 +19,115 @@ class Movienight extends Component {
   };
 
   handleQuery = (event) => {
-    event.preventDefault();
-    const movieQueryData = {
-      numberMovies: this.state.numberMovies,
-      genre: this.state.genre,
-      imdbScore: this.state.imdbScore,
-      host: this.props.user._id,
-      roomName: this.state.roomName,
-      roomPassword: this.state.roomPassword,
-      participants: this.state.participants,
-    };
-    movienightCreate(movieQueryData).then((response) => {
-      console.log("This is the response in the JSX file", response);
-      let dataReturned = JSON.parse(response.config.data);
-      console.log(`host: ${dataReturned.host}`);
-      this.setState({
-        movieArray: response.data.movieArray,
-        numberMovies: response.data.movieArray.length,
-        genre: response.data.genre,
-        imdbScore: response.data.imdbScore,
-
-        roomID: response.data._id,
-        queryHandled: true,
-      });
-      //this.redirect();
-    });
-  };
-
-  handleInputChange = (event) => {
-    const { name, value } = event.target;
-    console.log(this.state[name]);
-    this.setState({
-      [name]: value,
+    this.props.handleQuery(event).then(() => {
+      this.redirect();
     });
   };
 
   redirect = () => {
-    this.props.history.push(`/room/${this.state.roomName}`);
+    this.props.history.push(`/room/${this.props.roomID}`);
   };
 
   render() {
-    if (this.state.queryHandled) {
+    // if (this.state.queryHandled) {
+    //   return (
+    //     <div>
+    //       <h1>{this.state.roomName}</h1>
+    //       <h2>ID: {this.state.roomID}</h2>
+    //       <p>Number of participants: {this.state.participants}</p>
+    //       {this.state.movieArray.map((movie) => {
+    //         return (
+    //           <div>
+    //             <img
+    //               src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+    //               alt="movie poster"
+    //               style={{ width: "100px" }}
+    //             />
+    //             <p>Title: {movie.title}</p>
+    //             <p>Overview: {movie.overview}</p>
+    //             <p>Rating: {movie.vote_average}</p>
+    //           </div>
+    //         );
+    //       })}
+    //     </div>
+    //   );
+    // } else {
+    if (this.state.roomCreated) {
       return (
         <div>
-          <h1>{this.state.roomName}</h1>
-          <h2>ID: {this.state.roomID}</h2>
-          <p>Number of participants: {this.state.participants}</p>
-          {this.state.movieArray.map((movie) => {
-            return (
-              <div>
-                <img
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                  alt="movie poster"
-                  style={{ width: "100px" }}
-                />
-                <p>Title: {movie.title}</p>
-                <p>Overview: {movie.overview}</p>
-                <p>Rating: {movie.vote_average}</p>
-              </div>
-            );
-          })}
+          <h2> You are creating a room called {this.props.roomName} </h2>
+          <h2>The number of participants will be {this.props.participants}</h2>
+
+          <form onSubmit={this.handleQuery} action="">
+            <label htmlFor="genre">Select the genre</label>
+            <select
+              onChange={this.props.handleInputChange}
+              name="genre"
+              id="genre"
+            >
+              {importedGenreArr.map((element) => {
+                return (
+                  <option key={element} value={element}>
+                    {element}
+                  </option>
+                );
+              })}
+            </select>
+            <br />
+            <label htmlFor="numberMovies">How many movies?</label>
+            <input
+              name="numberMovies"
+              onChange={this.props.handleInputChange}
+              type="number"
+            />{" "}
+            <br />
+            <label htmlFor="imdbScore">Minimum IMDB rating</label>
+            <input
+              name="imdbScore"
+              onChange={this.props.handleInputChange}
+              type="number"
+            />{" "}
+            <br />
+            <button>Generate movies!</button>
+          </form>
         </div>
       );
     } else {
-      if (this.state.roomCreated) {
-        return (
-          <div>
-            <h2> You are creating a room called {this.state.roomName} </h2>
-            <h2>
-              The number of participants will be {this.state.participants}
-            </h2>
+      return (
+        <div>
+          <h1>Create your movie night</h1>
 
-            <form onSubmit={this.handleQuery} action="">
-              <label htmlFor="genre">Select the genre</label>
-              <select onChange={this.handleInputChange} name="genre" id="genre">
-                {importedGenreArr.map((element) => {
-                  return (
-                    <option key={element} value={element}>
-                      {element}
-                    </option>
-                  );
-                })}
-              </select>
-              <br />
-              <label htmlFor="numberMovies">How many movies?</label>
-              <input
-                name="numberMovies"
-                onChange={this.handleInputChange}
-                type="number"
-              />{" "}
-              <br />
-              <label htmlFor="imdbScore">Minimum IMDB rating</label>
-              <input
-                name="imdbScore"
-                onChange={this.handleInputChange}
-                type="number"
-              />{" "}
-              <br />
-              <button>Generate movies!</button>
-            </form>
-          </div>
-        );
-      } else {
-        return (
-          <div>
-            <h1>Create your movie night</h1>
-
-            <form onSubmit={this.handleCreateNight} action="">
-              <label htmlFor="roomName">Enter your room name</label>
-              <input
-                name="roomName"
-                onChange={this.handleInputChange}
-                type="text"
-                placeholder="Room name"
-              />
-              <br />
-              <label htmlFor="roomPassword">Enter your room password</label>
-              <input
-                name="roomPassword"
-                onChange={this.handleInputChange}
-                type="password"
-                placeholder="Password"
-              />
-              <br />
-              <label htmlFor="participants">Enter number of participants</label>
-              <input
-                name="participants"
-                onChange={this.handleInputChange}
-                type="number"
-              />
-              <br />
-              <button type="submit">Create movie night!</button>
-            </form>
-          </div>
-        );
-      }
+          <form onSubmit={this.handleCreateNight} action="">
+            <label htmlFor="roomName">Enter your room name</label>
+            <input
+              name="roomName"
+              onChange={this.props.handleInputChange}
+              type="text"
+              placeholder="Room name"
+            />
+            <br />
+            <label htmlFor="roomPassword">Enter your room password</label>
+            <input
+              name="roomPassword"
+              onChange={this.props.handleInputChange}
+              type="password"
+              placeholder="Password"
+            />
+            <br />
+            <label htmlFor="participants">Enter number of participants</label>
+            <input
+              name="participants"
+              onChange={this.props.handleInputChange}
+              type="number"
+            />
+            <br />
+            <button type="submit">Create movie night!</button>
+          </form>
+        </div>
+      );
     }
   }
+  // }
 }
 
 export default Movienight;

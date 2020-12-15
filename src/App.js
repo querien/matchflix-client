@@ -14,11 +14,20 @@ import NormalRoute from "./routing-components/NormalRoute";
 import ProtectedRoute from "./routing-components/ProtectedRoute";
 import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
+import { movienightCreate } from "./services/protectedservices";
 
 class App extends React.Component {
   state = {
     user: null,
     isLoading: true,
+    roomName: "",
+    roomPassword: "",
+    movieArray: [],
+    numberMovies: 0,
+    genre: "",
+    imdbScore: 0,
+    participants: 0,
+    roomID: "",
   };
 
   componentDidMount = () => {
@@ -40,6 +49,41 @@ class App extends React.Component {
         user: res.data.user,
         isLoading: false,
       });
+    });
+  };
+
+  handleQuery = (event) => {
+    event.preventDefault();
+    const movieQueryData = {
+      numberMovies: this.state.numberMovies,
+      genre: this.state.genre,
+      imdbScore: this.state.imdbScore,
+      host: this.props.user._id,
+      roomName: this.state.roomName,
+      roomPassword: this.state.roomPassword,
+      participants: this.state.participants,
+    };
+    return movienightCreate(movieQueryData).then((response) => {
+      console.log("This is the response in the JSX file", response);
+      let dataReturned = JSON.parse(response.config.data);
+      console.log(`host: ${dataReturned.host}`);
+      this.setState({
+        movieArray: response.data.movieArray,
+        numberMovies: response.data.movieArray.length,
+        genre: response.data.genre,
+        imdbScore: response.data.imdbScore,
+
+        roomID: response.data._id,
+        queryHandled: true,
+      });
+    });
+  };
+
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    console.log(this.state[name]);
+    this.setState({
+      [name]: value,
     });
   };
 
@@ -135,12 +179,16 @@ class App extends React.Component {
             path={"/movienight"}
             component={Movienight}
             user={this.state.user}
+            handleQuery={this.handleQuery}
+            handleInputChange={this.handleInputChange}
+            {...this.state}
           />
           <ProtectedRoute
             exact
             path={"/room/:id"}
             user={this.state.user}
             component={Moviedisplay}
+            {...this.state}
           />
         </Switch>
       </div>
