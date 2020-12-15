@@ -10,15 +10,27 @@ import Movienight from "./pages/Movienight";
 import ProtectedPage from "./pages/ProtectedPage";
 import Room from "./pages/Room";
 import Signup from "./pages/Signup";
+import Joinroom from "./pages/Joinroom";
 import NormalRoute from "./routing-components/NormalRoute";
 import ProtectedRoute from "./routing-components/ProtectedRoute";
 import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
+import { movienightCreate } from "./services/protectedservices";
+import { joinRoom } from "./services/protectedservices";
 
 class App extends React.Component {
   state = {
     user: null,
     isLoading: true,
+    roomName: "",
+    roomPassword: "",
+    movieArray: [],
+    numberMovies: 0,
+    genre: "",
+    imdbScore: 0,
+    participants: 0,
+    roomID: "",
+    joinErr: "",
   };
 
   componentDidMount = () => {
@@ -40,6 +52,53 @@ class App extends React.Component {
         user: res.data.user,
         isLoading: false,
       });
+    });
+  };
+
+  handleQuery = (event) => {
+    event.preventDefault();
+    const movieQueryData = {
+      numberMovies: this.state.numberMovies,
+      genre: this.state.genre,
+      imdbScore: this.state.imdbScore,
+      host: this.state.user._id,
+      roomName: this.state.roomName,
+      roomPassword: this.state.roomPassword,
+      participants: this.state.participants,
+    };
+    return movienightCreate(movieQueryData).then((response) => {
+      console.log("This is the response in the JSX file", response);
+      let dataReturned = JSON.parse(response.config.data);
+      console.log(`host: ${dataReturned.host}`);
+      this.setState({
+        movieArray: response.data.movieArray,
+        numberMovies: response.data.movieArray.length,
+        genre: response.data.genre,
+        imdbScore: response.data.imdbScore,
+        roomID: response.data._id,
+        queryHandled: true,
+      });
+    });
+  };
+
+  handleJoinNight = (event) => {
+    event.preventDefault();
+    const roomData = {
+      roomName: this.state.roomName,
+      roomPassword: this.state.roomPassword,
+    };
+    return joinRoom(roomData).then((response) => {
+      response.roomID
+        ? this.setState({ roomID: response.roomID })
+        : this.setState({ joinErr: response.joinErr });
+    });
+  };
+
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    console.log(this.state[name]);
+    this.setState({
+      [name]: value,
     });
   };
 
@@ -135,12 +194,26 @@ class App extends React.Component {
             path={"/movienight"}
             component={Movienight}
             user={this.state.user}
+            handleQuery={this.handleQuery}
+            handleInputChange={this.handleInputChange}
+            {...this.state}
           />
           <ProtectedRoute
             exact
             path={"/room/:id"}
             user={this.state.user}
             component={Moviedisplay}
+            {...this.state}
+          />
+
+          <ProtectedRoute
+            exact
+            path={"/joinroom"}
+            component={Joinroom}
+            user={this.state.user}
+            handleJoinNight={this.handleJoinNight}
+            handleInputChange={this.handleInputChange}
+            {...this.state}
           />
         </Switch>
       </div>

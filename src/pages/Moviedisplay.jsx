@@ -34,10 +34,23 @@ class Moviedisplay extends Component {
   render() {
     return (
       <div>
-        <h2>The movies are supposed to be displayed here</h2>
-
-        <button onClick={() => this.handleRightButton()}>Dislike </button>
-        <button onClick={() => this.handleRightButton()}>Like</button>
+        <h1>{this.props.roomName}</h1>
+        <h2>ID: {this.props.roomID}</h2>
+        <p>Number of participants: {this.props.participants}</p>
+        {this.props.movieArray.map((movie) => {
+          return (
+            <div>
+              <img
+                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                alt="movie poster"
+                style={{ width: "100px" }}
+              />
+              <p>Title: {movie.title}</p>
+              <p>Overview: {movie.overview}</p>
+              <p>Rating: {movie.vote_average}</p>
+            </div>
+          );
+        })}
       </div>
     );
   }
