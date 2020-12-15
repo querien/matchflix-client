@@ -6,9 +6,8 @@ const importedGenres = genres;
 const importedGenreArr = Object.keys(importedGenres[0]);
 
 class Movienight extends Component {
-  props = {
+  state = {
     roomCreated: false,
-    queryHandled: false,
   };
 
   handleCreateNight = (event) => {

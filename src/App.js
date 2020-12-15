@@ -58,7 +58,7 @@ class App extends React.Component {
       numberMovies: this.state.numberMovies,
       genre: this.state.genre,
       imdbScore: this.state.imdbScore,
-      host: this.props.user._id,
+      host: this.state.user._id,
       roomName: this.state.roomName,
       roomPassword: this.state.roomPassword,
       participants: this.state.participants,
