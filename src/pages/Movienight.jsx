@@ -29,15 +29,6 @@ class Movienight extends Component {
     this.props.history.push(`/room/${this.props.roomID}`);
   };
 
-  // handleInputChange = (event) => {
-  //   this.props.handleInputChange(event)
-  //   // const { name, value } = event.target;
-  //   // console.log(this.state[name]);
-  //   // this.setState({
-  //   //   [name]: value,
-  //   });
-  // };
-
   handleRightButton = (event) => {
     event.preventDefault();
     this.props.handleRightButton(event);

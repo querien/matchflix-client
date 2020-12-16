@@ -32,6 +32,7 @@ class App extends React.Component {
     roomID: "",
     joinErr: "",
     movieNumber: 0,
+    userReady: false,
   };
 
   componentDidMount = () => {
@@ -91,9 +92,29 @@ class App extends React.Component {
       roomPassword: this.state.roomPassword,
     };
     return joinRoom(roomData).then((response) => {
-      response.roomID
-        ? this.setState({ roomID: response.roomID })
-        : this.setState({ joinErr: response.joinErr });
+      console.log("the response in app.js,", response);
+      const {
+        movieArray,
+        genre,
+        imdbScore,
+        roomName,
+        _id,
+        participants,
+      } = response.data.roomToJoin;
+      console.log(_id);
+      if (_id) {
+        this.setState({
+          movieArray: movieArray,
+          genre: genre,
+          imdbScore: imdbScore,
+          roomID: _id,
+          roomName: roomName,
+          partipants: participants,
+          queryHandled: true,
+        });
+      } else {
+        this.setState({ joinErr: response.data.joinErr });
+      }
     });
   };
 
@@ -134,21 +155,29 @@ class App extends React.Component {
     );
   };
 
-  handleRightButton(event) {
+  handleRightButton = (event) => {
     event.preventDefault();
     console.log("The like button has been pressed!");
     const movieQueryData = {
       MovienightID: this.state.roomID,
       currentMovie: this.state.movieNumber,
+      participantID: this.state.user._id,
       vote: 1,
     };
-    return updateSingleMovie(movieQueryData).then((response) => {
-      console.log("This is the response in the JSX file", response);
-      this.setState({
-        movieNumber: this.state.movieNumber + 1,
+    if (this.state.movieNumber < this.state.movieArray.length - 1) {
+      console.log(this.state.movieNumber < this.state.movieArray.length);
+      return updateSingleMovie(movieQueryData).then((response) => {
+        console.log("This is the response in the JSX file", response);
+        this.setState({
+          movieNumber: this.state.movieNumber + 1,
+        });
       });
-    });
-  }
+    } else {
+      this.setState({
+        userReady: true,
+      });
+    }
+  };
 
   authenticate = (user) => {
     this.setState({
