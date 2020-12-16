@@ -4,12 +4,18 @@ import { Link } from "react-router-dom";
 class Profile extends Component {
   render() {
     return (
-      <div>
+      <div className="flexContainer">
         <h1> Hello there {this.props.user.username}!</h1>
 
-        <Link to={"/settings"}>Edit your profile</Link>
-        <Link to={"/movienight"}>Create a movie night</Link>
-        <Link to={"/joinroom"}>Join a movie night</Link>
+        <Link className=" buttonClass" to={"/settings"}>
+          Edit your profile
+        </Link>
+        <Link className=" buttonClass" to={"/movienight"}>
+          Create a movie night
+        </Link>
+        <Link className=" buttonClass" to={"/joinroom"}>
+          Join a movie night
+        </Link>
       </div>
     );
   }
