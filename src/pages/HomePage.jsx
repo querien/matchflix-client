@@ -13,9 +13,7 @@ function HomePage(props) {
         {props.user ? (
           <>
             <img src={logo} alt="Matchflix" />
-            <Link to="/protected" className="buttonClass authLink">
-              Protected Page
-            </Link>
+            <br />
             <button
               className="nav-logoutbtn buttonClass"
               onClick={props.handleLogout}

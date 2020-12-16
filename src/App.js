@@ -7,7 +7,6 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Movienight from "./pages/Movienight";
 import ProtectedPage from "./pages/ProtectedPage";
-import Room from "./pages/Room";
 import Signup from "./pages/Signup";
 import Joinroom from "./pages/Joinroom";
 import FinalPage from "./pages/FinalPage";
@@ -244,12 +243,6 @@ class App extends React.Component {
             path={PATHS.LOGINPAGE}
             authenticate={this.authenticate}
             component={LogIn}
-          />
-          <NormalRoute
-            exact
-            path={"/room"}
-            component={Room}
-            user={this.state.user}
           />
           <ProtectedRoute
             exact

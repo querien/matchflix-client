@@ -18,11 +18,16 @@ export default class Joinroom extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleJoinNight} action="">
+        <form
+          className="inputContainer"
+          onSubmit={this.handleJoinNight}
+          action=""
+        >
           <label htmlFor="roomName">
             Enter the name of the room you're trying to join
           </label>
           <input
+            className="inputField"
             name="roomName"
             onChange={this.props.handleInputChange}
             type="text"
@@ -31,13 +36,18 @@ export default class Joinroom extends Component {
           <br />
           <label htmlFor="roomPassword">Enter the room's password</label>
           <input
+            className="inputField"
             name="roomPassword"
             onChange={this.props.handleInputChange}
+            placeholder="Enter password"
             type="password"
           />
           <br />
-          <button type="submit">Join a movie night!</button>
+          <button className="smallButton" type="submit">
+            Join a movie night!
+          </button>
         </form>
+
         <p>{this.props.joinErr}</p>
       </div>
     );

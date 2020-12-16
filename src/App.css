@@ -29,6 +29,7 @@
   font-size: 18px;
   font-weight: 400;
   text-decoration: none;
+  margin: 10px;
 }
 
 .buttonClass:hover {
@@ -36,13 +37,65 @@
   border: 1px solid #f8faef;
 }
 
+.inputField {
+  color: #9299a4;
+  padding: 5px 30px;
+  border-bottom: 1px solid #9299a4;
+  box-sizing: border-box;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  margin: 5px;
+}
+
+.smallButton {
+  color: #282c34;
+  background-color: #9299a4;
+  padding: 5px 10x;
+  border: 1px solid #9299a4;
+  box-sizing: border-box;
+  border-radius: 40px;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: none;
+}
+.smallButton:hover {
+  color: #f8faef;
+  border: 1px solid #f8faef;
+}
+
 .likeButton {
   background-color: #f8faef;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+  margin: auto 30px;
 }
 
 .flexContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputField-subcontainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  height: 70%;
+  background-color: #f8faef;
+}
+
+.description {
+  font-size: 12px;
 }
