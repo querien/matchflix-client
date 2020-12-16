@@ -2,31 +2,34 @@ import "../App.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
+import logo from "../MATCHFLIX.png";
 
 function HomePage(props) {
   return (
     <div className="App">
-      <Link to="/" className="nav__projectName">
-        Matchflix TEST
-      </Link>
+      <Link to="/" className="nav__projectName"></Link>
 
       <div className="nav__authLinks">
         {props.user ? (
           <>
-            <Link to="/protected" className="authLink">
+            <img src={logo} alt="Matchflix" />
+            <Link to="/protected" className="buttonClass authLink">
               Protected Page
             </Link>
-            <button className="nav-logoutbtn" onClick={props.handleLogout}>
+            <button
+              className="nav-logoutbtn buttonClass"
+              onClick={props.handleLogout}
+            >
               Logout
             </button>
             <Profile user={props.user} />
           </>
         ) : (
           <>
-            <Link to="/auth/signup" className="authLink">
+            <Link to="/auth/signup" className=" buttonClass authLink">
               Signup
             </Link>
-            <Link to="/auth/login" className="authLink">
+            <Link to="/auth/login" className="buttonClass authLink">
               Log In
             </Link>
           </>
