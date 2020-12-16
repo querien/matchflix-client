@@ -10,6 +10,7 @@ import ProtectedPage from "./pages/ProtectedPage";
 import Room from "./pages/Room";
 import Signup from "./pages/Signup";
 import Joinroom from "./pages/Joinroom";
+import FinalPage from "./pages/FinalPage";
 import NormalRoute from "./routing-components/NormalRoute";
 import ProtectedRoute from "./routing-components/ProtectedRoute";
 import { getLoggedIn, logout } from "./services/auth";
@@ -179,6 +180,20 @@ class App extends React.Component {
     }
   };
 
+  handleLeftButton = (event) => {
+    event.preventDefault();
+    if (this.state.movieNumber < this.state.movieArray.length - 1) {
+      console.log(this.state.movieNumber < this.state.movieArray.length);
+      this.setState({
+        movieNumber: this.state.movieNumber + 1,
+      });
+    } else {
+      this.setState({
+        userReady: true,
+      });
+    }
+  };
+
   authenticate = (user) => {
     this.setState({
       user,
@@ -252,6 +267,7 @@ class App extends React.Component {
             user={this.state.user}
             component={Movienight}
             handleRightButton={this.handleRightButton}
+            handleLeftButton={this.handleLeftButton}
             {...this.state}
           />
 
@@ -262,6 +278,13 @@ class App extends React.Component {
             user={this.state.user}
             handleJoinNight={this.handleJoinNight}
             handleInputChange={this.handleInputChange}
+            {...this.state}
+          />
+          <ProtectedRoute
+            exact
+            path={"/results/:id"}
+            component={FinalPage}
+            user={this.state.user}
             {...this.state}
           />
         </Switch>

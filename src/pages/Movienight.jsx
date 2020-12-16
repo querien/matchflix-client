@@ -29,15 +29,26 @@ class Movienight extends Component {
     this.props.history.push(`/room/${this.props.roomID}`);
   };
 
+  redirectToWaitingRoom = () => {
+    this.props.history.push(`/results/${this.props.roomID}`);
+  };
+
   handleRightButton = (event) => {
     event.preventDefault();
     this.props.handleRightButton(event);
+    if (this.props.userReady) {
+      this.redirectToWaitingRoom();
+    }
   };
 
   //The Left button only renders the next element
-  handleLeftButton() {
-    return;
-  }
+  handleLeftButton = (event) => {
+    event.preventDefault();
+    this.props.handleLeftButton(event);
+    if (this.props.userReady) {
+      this.redirectToWaitingRoom();
+    }
+  };
 
   render() {
     if (this.props.queryHandled) {
