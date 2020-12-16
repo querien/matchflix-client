@@ -3,7 +3,6 @@ import { Switch } from "react-router-dom";
 import LoadingComponent from "./components/Loading";
 import HomePage from "./pages/HomePage";
 import LogIn from "./pages/LogIn";
-import Moviedisplay from "./pages/Moviedisplay";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Movienight from "./pages/Movienight";
@@ -11,11 +10,13 @@ import ProtectedPage from "./pages/ProtectedPage";
 import Room from "./pages/Room";
 import Signup from "./pages/Signup";
 import Joinroom from "./pages/Joinroom";
+import FinalPage from "./pages/FinalPage";
 import NormalRoute from "./routing-components/NormalRoute";
 import ProtectedRoute from "./routing-components/ProtectedRoute";
 import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
 import { movienightCreate } from "./services/protectedservices";
+import { updateSingleMovie } from "./services/individualMovie";
 import { joinRoom } from "./services/protectedservices";
 
 class App extends React.Component {
@@ -31,6 +32,8 @@ class App extends React.Component {
     participants: 0,
     roomID: "",
     joinErr: "",
+    movieNumber: 0,
+    userReady: false,
   };
 
   componentDidMount = () => {
@@ -66,19 +69,21 @@ class App extends React.Component {
       roomPassword: this.state.roomPassword,
       participants: this.state.participants,
     };
-    return movienightCreate(movieQueryData).then((response) => {
-      console.log("This is the response in the JSX file", response);
-      let dataReturned = JSON.parse(response.config.data);
-      console.log(`host: ${dataReturned.host}`);
-      this.setState({
-        movieArray: response.data.movieArray,
-        numberMovies: response.data.movieArray.length,
-        genre: response.data.genre,
-        imdbScore: response.data.imdbScore,
-        roomID: response.data._id,
-        queryHandled: true,
-      });
-    });
+    return movienightCreate(movieQueryData)
+      .then((response) => {
+        console.log("This is the response in the JSX file", response);
+        let dataReturned = JSON.parse(response.config.data);
+        console.log(`host: ${dataReturned.host}`);
+        this.setState({
+          movieArray: response.data.movieArray,
+          numberMovies: response.data.movieArray.length,
+          genre: response.data.genre,
+          imdbScore: response.data.imdbScore,
+          roomID: response.data._id,
+          queryHandled: true,
+        });
+      })
+      .catch((error) => console.log("this is the error:", error));
   };
 
   handleJoinNight = (event) => {
@@ -88,9 +93,29 @@ class App extends React.Component {
       roomPassword: this.state.roomPassword,
     };
     return joinRoom(roomData).then((response) => {
-      response.roomID
-        ? this.setState({ roomID: response.roomID })
-        : this.setState({ joinErr: response.joinErr });
+      console.log("the response in app.js,", response);
+      const {
+        movieArray,
+        genre,
+        imdbScore,
+        roomName,
+        _id,
+        participants,
+      } = response.data.roomToJoin;
+      console.log(_id);
+      if (_id) {
+        this.setState({
+          movieArray: movieArray,
+          genre: genre,
+          imdbScore: imdbScore,
+          roomID: _id,
+          roomName: roomName,
+          partipants: participants,
+          queryHandled: true,
+        });
+      } else {
+        this.setState({ joinErr: response.data.joinErr });
+      }
     });
   };
 
@@ -129,6 +154,44 @@ class App extends React.Component {
         });
       }
     );
+  };
+
+  handleRightButton = (event) => {
+    event.preventDefault();
+    console.log("The like button has been pressed!");
+    const movieQueryData = {
+      MovienightID: this.state.roomID,
+      currentMovie: this.state.movieNumber,
+      participantID: this.state.user._id,
+      vote: 1,
+    };
+    if (this.state.movieNumber < this.state.movieArray.length - 1) {
+      console.log(this.state.movieNumber < this.state.movieArray.length);
+      return updateSingleMovie(movieQueryData).then((response) => {
+        console.log("This is the response in the JSX file", response);
+        this.setState({
+          movieNumber: this.state.movieNumber + 1,
+        });
+      });
+    } else {
+      this.setState({
+        userReady: true,
+      });
+    }
+  };
+
+  handleLeftButton = (event) => {
+    event.preventDefault();
+    if (this.state.movieNumber < this.state.movieArray.length - 1) {
+      console.log(this.state.movieNumber < this.state.movieArray.length);
+      this.setState({
+        movieNumber: this.state.movieNumber + 1,
+      });
+    } else {
+      this.setState({
+        userReady: true,
+      });
+    }
   };
 
   authenticate = (user) => {
@@ -202,7 +265,9 @@ class App extends React.Component {
             exact
             path={"/room/:id"}
             user={this.state.user}
-            component={Moviedisplay}
+            component={Movienight}
+            handleRightButton={this.handleRightButton}
+            handleLeftButton={this.handleLeftButton}
             {...this.state}
           />
 
@@ -213,6 +278,13 @@ class App extends React.Component {
             user={this.state.user}
             handleJoinNight={this.handleJoinNight}
             handleInputChange={this.handleInputChange}
+            {...this.state}
+          />
+          <ProtectedRoute
+            exact
+            path={"/results/:id"}
+            component={FinalPage}
+            user={this.state.user}
             {...this.state}
           />
         </Switch>

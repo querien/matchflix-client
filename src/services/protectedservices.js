@@ -21,6 +21,7 @@ export function movienightCreate(movienightData) {
 
 export function joinRoom(roomData) {
   return settingService.post("/joinroom", roomData).then((response) => {
+    console.log("this is the response from fb", response);
     return response;
   });
 }

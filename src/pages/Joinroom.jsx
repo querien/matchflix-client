@@ -4,7 +4,6 @@ export default class Joinroom extends Component {
   handleJoinNight = (event) => {
     this.props.handleJoinNight(event).then(() => {
       if (this.props.roomID) {
-        console.log("The id successfully traveled to the frontend");
         this.redirect();
       } else {
         console.log("You pressed the button and nothing happend");
