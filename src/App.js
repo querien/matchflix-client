@@ -17,6 +17,7 @@ import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
 import { movienightCreate } from "./services/protectedservices";
 import { updateSingleMovie } from "./services/individualMovie";
+import { removeParticipant } from "./services/individualMovie";
 import { joinRoom } from "./services/protectedservices";
 
 class App extends React.Component {
@@ -165,6 +166,10 @@ class App extends React.Component {
       participantID: this.state.user._id,
       vote: 1,
     };
+
+    console.log("CURRENT MOVIE NUMBER", this.state.movieNumber);
+    console.log("MOVIE LENGTH", this.state.movieArray.length);
+
     if (this.state.movieNumber < this.state.movieArray.length - 1) {
       console.log(this.state.movieNumber < this.state.movieArray.length);
       return updateSingleMovie(movieQueryData).then((response) => {
@@ -182,7 +187,7 @@ class App extends React.Component {
 
   handleLeftButton = (event) => {
     event.preventDefault();
-    if (this.state.movieNumber < this.state.movieArray.length - 1) {
+    if (this.state.movieNumber < this.state.movieArray.length) {
       console.log(this.state.movieNumber < this.state.movieArray.length);
       this.setState({
         movieNumber: this.state.movieNumber + 1,
@@ -200,11 +205,23 @@ class App extends React.Component {
     });
   };
 
+  listener = () => {
+    window.addEventListener("load", (event) => {
+      console.log("Listening to the loading");
+      const removeUser = {
+        ParticipantID: this.state.user._id,
+        MovienightID: this.state.roomID,
+      };
+      return removeParticipant(removeUser).then((response) => {
+        console.log(this.state.user.username, "deleted");
+      });
+    });
+  };
+
   render() {
     if (this.state.isLoading) {
       return <LoadingComponent />;
     }
-
     return (
       <div className="App">
         {/* // */}
@@ -282,7 +299,7 @@ class App extends React.Component {
           />
           <ProtectedRoute
             exact
-            path={"/results/:id"}
+            path={`/results/${this.state.roomID}`}
             component={FinalPage}
             user={this.state.user}
             {...this.state}
