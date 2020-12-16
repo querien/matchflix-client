@@ -7,6 +7,6 @@ const settingService = axios.create({
 });
 
 //Added a function here
-export function eachMovie(singlemovie) {
-  axios.post("/room/:id", singlemovie).then((response) => response);
+export function updateSingleMovie(singlemovieData) {
+  axios.post("/room/:id", singlemovieData).then((response) => response);
 }

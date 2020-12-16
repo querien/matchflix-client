@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { movienightCreate } from "../services/protectedservices";
 import { genres } from "../genres.json";
+import { updateSingleMovie } from "../services/individualMovie";
 
 const importedGenres = genres;
 const importedGenreArr = Object.keys(importedGenres[0]);
@@ -8,16 +9,6 @@ const importedGenreArr = Object.keys(importedGenres[0]);
 class Movienight extends Component {
   state = {
     roomCreated: false,
-    roomName: "",
-    roomPassword: "",
-    movieArray: [],
-    numberMovies: 0,
-    genre: "",
-    imdbScore: 0,
-    participants: 0,
-    roomID: "",
-    queryHandled: false,
-    movieNumber: 0,
   };
 
   handleCreateNight = (event) => {
@@ -29,80 +20,59 @@ class Movienight extends Component {
 
   handleQuery = (event) => {
     event.preventDefault();
-    const movieQueryData = {
-      numberMovies: this.state.numberMovies,
-      genre: this.state.genre,
-      imdbScore: this.state.imdbScore,
-      host: this.props.user._id,
-      roomName: this.state.roomName,
-      roomPassword: this.state.roomPassword,
-      participants: this.state.participants,
-    };
-    movienightCreate(movieQueryData).then((response) => {
-      console.log("This is the response in the JSX file", response);
-      let dataReturned = JSON.parse(response.config.data);
-      console.log(`host: ${dataReturned.host}`);
-      this.setState({
-        movieArray: response.data.movieArray,
-        numberMovies: response.data.movieArray.length,
-        genre: response.data.genre,
-        imdbScore: response.data.imdbScore,
-
-        roomID: response.data._id,
-        queryHandled: true,
-      });
-      //this.redirect();
+    this.props.handleQuery(event).then(() => {
+      this.redirect();
     });
   };
 
-  handleInputChange = (event) => {
-    const { name, value } = event.target;
-    console.log(this.state[name]);
-    this.setState({
-      [name]: value,
-    });
+  redirect = () => {
+    this.props.history.push(`/room/${this.props.roomID}`);
   };
 
-  handleRightButton() {
-    this.setState({
-      movieNumber: this.state.movieNumber + 1,
-    });
-  }
+  // handleInputChange = (event) => {
+  //   this.props.handleInputChange(event)
+  //   // const { name, value } = event.target;
+  //   // console.log(this.state[name]);
+  //   // this.setState({
+  //   //   [name]: value,
+  //   });
+  // };
+
+  handleRightButton = (event) => {
+    event.preventDefault();
+    this.props.handleRightButton(event);
+  };
 
   //The Left button only renders the next element
   handleLeftButton() {
     return;
   }
 
-  redirect = () => {
-    this.props.history.push(`/room/${this.state.roomName}`);
-  };
-
   render() {
-    if (this.state.queryHandled) {
+    if (this.props.queryHandled) {
       return (
         <div>
-          <h1>{this.state.roomName}</h1>
-          <h2>ID: {this.state.roomID}</h2>
-          <p>Number of participants: {this.state.participants}</p>(
+          <h1>{this.props.roomName}</h1>
+          <h2>ID: {this.props.roomID}</h2>
+          <p>Number of participants: {this.props.participants}</p>(
           <div>
             <img
               src={`https://image.tmdb.org/t/p/original/${
-                this.state.movieArray[this.state.movieNumber].poster_path
+                this.props.movieArray[this.props.movieNumber].poster_path
               }`}
               alt="movie poster"
-              style={{ width: "100px" }}
+              style={{ width: "200px" }}
             />
-            <p>Title: {this.state.movieArray[this.state.movieNumber].title}</p>
+            <p>Title: {this.props.movieArray[this.props.movieNumber].title}</p>
             <p>
-              Overview: {this.state.movieArray[this.state.movieNumber].overview}
+              Overview: {this.props.movieArray[this.props.movieNumber].overview}
             </p>
             <p>
               Rating:{" "}
-              {this.state.movieArray[this.state.movieNumber].vote_average}
+              {this.props.movieArray[this.props.movieNumber].vote_average}
             </p>
-            <button onClick={() => this.handleLeftButton()}>Dislike</button>
-            <button onClick={() => this.handleRightButton()}>Like</button>
+            <button onClick={this.handleLeftButton}>Dislike</button>
+            <button onClick={this.handleRightButton}>Like</button>
           </div>
           );
         </div>
@@ -111,14 +81,18 @@ class Movienight extends Component {
       if (this.state.roomCreated) {
         return (
           <div>
-            <h2> You are creating a room called {this.state.roomName} </h2>
+            <h2> You are creating a room called {this.props.roomName} </h2>
             <h2>
-              The number of participants will be {this.state.participants}
+              The number of participants will be {this.props.participants}
             </h2>
 
             <form onSubmit={this.handleQuery} action="">
               <label htmlFor="genre">Select the genre</label>
-              <select onChange={this.handleInputChange} name="genre" id="genre">
+              <select
+                onChange={this.props.handleInputChange}
+                name="genre"
+                id="genre"
+              >
                 {importedGenreArr.map((element) => {
                   return (
                     <option key={element} value={element}>
@@ -131,14 +105,14 @@ class Movienight extends Component {
               <label htmlFor="numberMovies">How many movies?</label>
               <input
                 name="numberMovies"
-                onChange={this.handleInputChange}
+                onChange={this.props.handleInputChange}
                 type="number"
               />{" "}
               <br />
               <label htmlFor="imdbScore">Minimum IMDB rating</label>
               <input
                 name="imdbScore"
-                onChange={this.handleInputChange}
+                onChange={this.props.handleInputChange}
                 type="number"
               />{" "}
               <br />
@@ -155,7 +129,7 @@ class Movienight extends Component {
               <label htmlFor="roomName">Enter your room name</label>
               <input
                 name="roomName"
-                onChange={this.handleInputChange}
+                onChange={this.props.handleInputChange}
                 type="text"
                 placeholder="Room name"
               />
@@ -163,7 +137,7 @@ class Movienight extends Component {
               <label htmlFor="roomPassword">Enter your room password</label>
               <input
                 name="roomPassword"
-                onChange={this.handleInputChange}
+                onChange={this.props.handleInputChange}
                 type="password"
                 placeholder="Password"
               />
@@ -171,7 +145,7 @@ class Movienight extends Component {
               <label htmlFor="participants">Enter number of participants</label>
               <input
                 name="participants"
-                onChange={this.handleInputChange}
+                onChange={this.props.handleInputChange}
                 type="number"
               />
               <br />
