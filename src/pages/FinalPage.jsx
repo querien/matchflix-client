@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Spinner from "../components/Loading/Spinner";
 import "./waiting.css";
+import io from "socket.io-client";
 import { removeParticipant } from "../services/individualMovie";
 import { getMovieNight } from "../services/individualMovie";
 
@@ -21,25 +22,35 @@ class FinalPage extends Component {
   //Some function that renders the page at SOME interval
   //If a condition is satisfied, render results
   componentDidMount() {
-    const removeUser = {
-      ParticipantID: this.props.user._id,
-      MovienightID: this.props.match.params.id,
-    };
-    console.log(removeUser, this.props);
-    return removeParticipant(removeUser).then((response) => {
-      console.log(response, "deleted");
-      setInterval(
-        () =>
-          getMovieNight(this.props.match.params.id).then((response) => {
-            console.log(response);
-          }),
-        10000
-      );
-
-      // HERE OU SET THE INTERVAL
-      // google for syntax of setInterval(()=> doSomething(), 5000) // need to connect this somehow with react (need to be able to clear the interval)
+    const socket = io("ws://localhost:5005");
+    socket.on("connect", () => {
+      socket.emit("joinRoom", {
+        username: this.props.user.username,
+        roomID: this.state.roomID,
+        participants: this.state.participants,
+      });
     });
 
+    socket.on("message", (msgFromServer) => {
+      console.log(msgFromServer);
+    });
+    // const removeUser = {
+    //   ParticipantID: this.props.user._id,
+    //   MovienightID: this.props.match.params.id,
+    // };
+    // console.log(removeUser, this.props);
+    // return removeParticipant(removeUser).then((response) => {
+    //   console.log(response, "deleted");
+    //   setInterval(
+    //     () =>
+    //       getMovieNight(this.props.match.params.id).then((response) => {
+    //         console.log(response);
+    //       }),
+    //     10000
+    //   );
+    // HERE OU SET THE INTERVAL
+    // google for syntax of setInterval(()=> doSomething(), 5000) // need to connect this somehow with react (need to be able to clear the interval)
+    //});
     // set an interval after i remove partiipants and every 5 seconds call the database to see amount of votes
     // everyone will do this because that is when the component mounts
     // as soon as the length of array is empty:
@@ -57,6 +68,12 @@ class FinalPage extends Component {
         <div>
           <h1>Waiting for the others to finish</h1>
           <Spinner />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1>All the users are done</h1>;
         </div>
       );
     }
