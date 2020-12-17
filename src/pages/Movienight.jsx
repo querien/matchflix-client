@@ -38,19 +38,21 @@ class Movienight extends Component {
 
   handleRightButton = (event) => {
     event.preventDefault();
-    this.props.handleRightButton(event);
-    if (this.props.userReady) {
-      this.redirectToWaitingRoom();
-    }
+    this.props.handleRightButton(event).then(() => {
+      if (this.props.userReady) {
+        this.redirectToWaitingRoom();
+      }
+    });
   };
 
   //The Left button only renders the next element
   handleLeftButton = (event) => {
     event.preventDefault();
-    this.props.handleLeftButton(event);
-    if (this.props.userReady) {
-      this.redirectToWaitingRoom();
-    }
+    this.props.handleLeftButton(event).then(() => {
+      if (this.props.userReady) {
+        this.redirectToWaitingRoom();
+      }
+    });
   };
 
   render() {

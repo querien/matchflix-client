@@ -1,4 +1,6 @@
 import React from "react";
+import like from "../../heart.png";
+import dislike from "../../close.png";
 
 const QueryHandled = (props) => {
   const {
@@ -14,7 +16,7 @@ const QueryHandled = (props) => {
   return (
     <div>
       <h1>{roomName}</h1>
-      <h2>ID: {roomID}</h2>
+      {/* <h2>ID: {roomID}</h2> */}
       <p>Number of participants: {participants}</p>
       <div>
         <img
@@ -22,11 +24,27 @@ const QueryHandled = (props) => {
           alt="movie poster"
           style={{ width: "200px" }}
         />
-        <p>Title: {movieArray[movieNumber].title}</p>
-        <p>Overview: {movieArray[movieNumber].overview}</p>
+        <h2> {movieArray[movieNumber].title}</h2>
+        <p className="description phoneContainer">
+          {movieArray[movieNumber].overview}
+        </p>
         <p>Rating: {movieArray[movieNumber].vote_average}</p>
-        <button onClick={handleLeftButton}>Dislike</button>
-        <button onClick={handleRightButton}>Like</button>
+        <button className="likeButton">
+          <img
+            className="icon"
+            src={dislike}
+            alt="dislike"
+            onClick={handleLeftButton}
+          />
+        </button>
+        <button className="likeButton">
+          <img
+            className="icon"
+            src={like}
+            alt="like"
+            onClick={handleRightButton}
+          />
+        </button>
       </div>
     </div>
   );
