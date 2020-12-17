@@ -3,16 +3,17 @@ import React from "react";
 const RoomCreated = (props) => {
   const {
     roomName,
-    participants,
+    roomPassword,
     handleQuery,
     handleInputChange,
     importedGenreArr,
   } = props;
+  console.log(roomPassword);
   return (
     <div>
-      <h2> You are creating a room called {roomName} </h2>
-      <h2>The number of participants will be {participants}</h2>
-
+      <h1>{roomName} !</h1>
+      <h3>Choose movie specifics</h3>
+      <h4>Generate movies based on your preferences</h4>
       <form onSubmit={handleQuery} action="">
         <label htmlFor="genre">Select the genre</label>
         <select onChange={handleInputChange} name="genre" id="genre">
@@ -38,13 +39,18 @@ const RoomCreated = (props) => {
           type="number"
         />{" "}
         <br />
-        <label htmlFor="imdbScore">Minimum IMDB rating</label>
+        <label htmlFor="imdbScore">Minimum movie rating (1-10)</label>
         <input
           className="inputField"
           name="imdbScore"
           onChange={handleInputChange}
           type="number"
         />{" "}
+        <br />
+        <p>
+          When you're ready, click submit to generate your movie night and start
+          voting{" "}
+        </p>
         <br />
         <button className="smallButton">Generate movies!</button>
       </form>
