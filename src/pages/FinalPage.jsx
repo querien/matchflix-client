@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Spinner from "../components/Loading/Spinner";
 import "./waiting.css";
+import "./finalPage.css";
 import { updateFinishedUsers } from "../services/individualMovie";
 import { getMovieNight } from "../services/individualMovie";
 
@@ -42,18 +43,18 @@ class FinalPage extends Component {
     if (this.state.loading) {
       return (
         <div>
-          <h1>Waiting for the others to finish</h1>
+          <h2>And the winner is ... </h2>
           <Spinner />
+          <h3>Waiting for your friends to finish voting</h3>
         </div>
       );
     } else {
       return (
         <div>
-          {" "}
-          <p>All the users have voted, this is the outcome!</p>
-          {this.state.results.map((element) => {
+          {this.state.results.map((element, index) => {
             return (
               <div>
+                <h2 classname="numberStyling">0{index + 1}</h2>
                 <img
                   src={`https://image.tmdb.org/t/p/original/${element.poster_path}`}
                   alt="movie poster"
@@ -62,6 +63,7 @@ class FinalPage extends Component {
                 <h2> {element.title}</h2>
                 <p className="description phoneContainer">{element.overview}</p>
                 <p>Rating: {element.vote_average}</p>
+                <p>Number of votes: {element.numVotes}</p>
               </div>
             );
           })}
