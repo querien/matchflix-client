@@ -1,6 +1,7 @@
 import React from "react";
 import like from "../../heart.png";
 import dislike from "../../close.png";
+import "../../pages/finalPage.css";
 
 const QueryHandled = (props) => {
   const {
@@ -22,13 +23,12 @@ const QueryHandled = (props) => {
           Movie {movieNumber + 1}/{movieArray.length}
         </h5>
         <img
-          classname="posterStyling"
+          className="posterStyling"
           src={`https://image.tmdb.org/t/p/original/${movieArray[movieNumber].poster_path}`}
           alt="movie poster"
-          style={{ width: "200px" }}
         />
         <h2> {movieArray[movieNumber].title}</h2>
-        <p className="description phoneContainer">
+        <p className="descriptionContainer">
           {movieArray[movieNumber].overview}
         </p>
         <p>Rating: {movieArray[movieNumber].vote_average}</p>
