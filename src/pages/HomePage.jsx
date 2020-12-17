@@ -25,6 +25,12 @@ function HomePage(props) {
           </>
         ) : (
           <>
+            <br></br>
+            <br></br>
+            <h1>Welcome to Matchflix!</h1>
+            <br></br>
+            <h2>Creat, Join and Vote on a Movienight! </h2>
+            <br></br>
             <Link to="/auth/signup" className=" buttonClass authLink">
               Signup
             </Link>

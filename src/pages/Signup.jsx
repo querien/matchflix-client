@@ -41,7 +41,7 @@ export default class Signup extends Component {
   render() {
     return (
       <div>
-        <h1>Sign Up</h1>
+        <h1>Sign Up to Matchflix</h1>
         <form onSubmit={this.handleFormSubmission} className="auth__form">
           <label htmlFor="input-username">Username</label>
           <input

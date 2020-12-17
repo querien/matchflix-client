@@ -18,9 +18,9 @@ const QueryHandled = (props) => {
       {/* <h2>ID: {roomID}</h2> */}
       <p>Number of friends joining: {participants}</p>
       <div>
-        <p>
-          {movieNumber + 1}/{movieArray.length}
-        </p>
+        <h5>
+          Movie {movieNumber + 1}/{movieArray.length}
+        </h5>
         <img
           classname="posterStyling"
           src={`https://image.tmdb.org/t/p/original/${movieArray[movieNumber].poster_path}`}

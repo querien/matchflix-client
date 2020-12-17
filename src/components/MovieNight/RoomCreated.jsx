@@ -11,11 +11,11 @@ const RoomCreated = (props) => {
   console.log(roomPassword);
   return (
     <div>
-      <h1>{roomName} !</h1>
-      <h3>Choose movie specifics</h3>
-      <h4>Generate movies based on your preferences</h4>
+      <h1>Your Movie Night</h1>
+      <h2>{roomName}</h2>
+      <br></br>
       <form onSubmit={handleQuery} action="">
-        <label htmlFor="genre">Select the genre</label>
+        <label htmlFor="genre">Which Genre?</label>
         <select onChange={handleInputChange} name="genre" id="genre">
           <option selected key="Action" value="Action">
             Action
@@ -31,7 +31,7 @@ const RoomCreated = (props) => {
             })}
         </select>
         <br />
-        <label htmlFor="numberMovies">How many movies?</label>
+        <label htmlFor="numberMovies">How many movies to choose from?</label>
         <input
           className="inputField"
           name="numberMovies"
@@ -39,7 +39,7 @@ const RoomCreated = (props) => {
           type="number"
         />{" "}
         <br />
-        <label htmlFor="imdbScore">Minimum movie rating (1-10)</label>
+        <label htmlFor="imdbScore">Minimum movie rating (1-10)?</label>
         <input
           className="inputField"
           name="imdbScore"
@@ -47,12 +47,8 @@ const RoomCreated = (props) => {
           type="number"
         />{" "}
         <br />
-        <p>
-          When you're ready, click submit to generate your movie night and start
-          voting{" "}
-        </p>
         <br />
-        <button className="smallButton">Generate movies!</button>
+        <button className="smallButton">Start Voting!</button>
       </form>
     </div>
   );
