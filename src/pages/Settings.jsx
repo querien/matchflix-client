@@ -49,9 +49,9 @@ class Settings extends Component {
   render() {
     return (
       <div>
-        <h2>Settings</h2>
+        <h1>Edit Your Profile</h1>
         <form onSubmit={this.handleSubmit} action="">
-          <label htmlFor="Username">Change username</label>
+          <label htmlFor="Username">Change Username</label>
           <input
             className="inputField"
             name="username"
@@ -61,25 +61,25 @@ class Settings extends Component {
           />{" "}
           <br />
           <p>
-            <label htmlFor="Password">Change password</label>
+            <label htmlFor="Password">Change Password</label>
             <input
               className="inputField"
               type="password"
               name="password"
-              placeholder="Type new password"
+              placeholder="Type New Password"
               onChange={this.handleInputChange}
             />{" "}
             <input
               className="inputField"
               type="password"
               name="confirmPassword"
-              placeholder="Confirm new password"
+              placeholder="Confirm New Password"
               onChange={this.handleInputChange}
             />{" "}
           </p>
           <br />
           <button className="smallButton" type="submit">
-            Update settings
+            Confirm Changes
           </button>
           {/* <button className="smallButton" type="submit">
             Delete profile

@@ -5,16 +5,20 @@ class Profile extends Component {
   render() {
     return (
       <div className="flexContainer">
-        <h1> Welcome back, {this.props.user.username}!</h1>
-
-        <Link className=" buttonClass" to={"/settings"}>
-          Edit your profile
-        </Link>
+        <h1> Hello, {this.props.user.username}!</h1>
+        <br></br>
         <Link className=" buttonClass" to={"/movienight"}>
-          Create a movie night
+          <strong>
+            <span color="red">Create</span> a Movie Night
+          </strong>
         </Link>
         <Link className=" buttonClass" to={"/joinroom"}>
-          Join a movie night
+          <strong>Join a Movie Night</strong>
+        </Link>
+        <br></br>
+        <br></br>
+        <Link className=" buttonClass" to={"/settings"}>
+          Edit Your Profile
         </Link>
       </div>
     );

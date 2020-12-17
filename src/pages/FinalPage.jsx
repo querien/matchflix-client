@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Spinner from "../components/Loading/Spinner";
 import "./waiting.css";
+import "./finalPage.css";
 import { updateFinishedUsers } from "../services/individualMovie";
 import { getMovieNight } from "../services/individualMovie";
 
@@ -37,36 +38,44 @@ class FinalPage extends Component {
   }
 
   render() {
-    console.log("HELLO", this.state);
-    console.log("PROPS", this.props);
     if (this.state.loading) {
       return (
         <div>
-          <h1>Waiting for the others to finish</h1>
+          <h2>And the winner is ... </h2>
           <Spinner />
+          <h3>Waiting for your friends to finish voting</h3>
         </div>
       );
     } else {
-      return (
-        <div>
-          {" "}
-          <p>All the users have voted, this is the outcome!</p>
-          {this.state.results.map((element) => {
-            return (
-              <div>
-                <img
-                  src={`https://image.tmdb.org/t/p/original/${element.poster_path}`}
-                  alt="movie poster"
-                  style={{ width: "200px" }}
-                />
-                <h2> {element.title}</h2>
-                <p className="description phoneContainer">{element.overview}</p>
-                <p>Rating: {element.vote_average}</p>
-              </div>
-            );
-          })}
-        </div>
-      );
+      return this.state.results.map((element, index) => {
+        return (
+          <div className="resultsContainer">
+            <div className="background">
+              <img
+                className="posterStyling"
+                src={`https://image.tmdb.org/t/p/original/${element.poster_path}`}
+                alt="movie poster"
+              />
+              <p className="layer">{index + 1}</p>
+            </div>
+
+            <table className="resultsContainerSub">
+              <tr>
+                <td className="movieTitle">{element.title}</td>
+              </tr>
+              <tr>
+                <td className="description">{element.overview}</td>
+              </tr>
+              <tr>
+                <td>Likes: {element.numVotes}</td>
+              </tr>
+              <tr>
+                <td> Rating: {element.vote_average}</td>
+              </tr>
+            </table>
+          </div>
+        );
+      });
     }
   }
 }

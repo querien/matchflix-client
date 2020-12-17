@@ -1,0 +1,58 @@
+.background {
+  position: relative;
+}
+
+.layer {
+  background-color: #041530;
+  font-family: "Abril Fatface";
+  font-size: 100px;
+  padding: 0;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+}
+
+.resultsContainerSub {
+  width: 45vw;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.description {
+  font-size: 12px;
+  text-align: start;
+  font-weight: 300;
+}
+
+.resultsContainer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.posterStyling {
+  border-radius: 5px;
+  width: 50vw;
+  max-width: 250px;
+}
+
+.movieTitle {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: start;
+}
+
+.descriptionContainer {
+  width: 70vw;
+  max-width: 600px;
+  text-align: center;
+  margin: auto;
+}

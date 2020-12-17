@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
 .App {
   text-align: center;
 }
@@ -12,16 +14,11 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   background-color: #041530;
   color: #f8faef;
   font-family: "Work Sans";
-}
-
-.img {
-  border-radius: 10px;
 }
 
 .buttonClass {
@@ -106,6 +103,7 @@ h5 {
 .inputField-subcontainer {
   display: flex;
   justify-content: space-between;
+  text-align: center;
 }
 
 /* The phone screen is 375px wide */
@@ -117,8 +115,4 @@ h5 {
 .icon {
   height: 70%;
   background-color: #f8faef;
-}
-
-.description {
-  font-size: 12px;
 }

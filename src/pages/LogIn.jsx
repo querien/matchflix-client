@@ -40,7 +40,8 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <h1>Log In</h1>
+        <h1>Log In to Matchflix</h1>
+
         <form onSubmit={this.handleFormSubmission} className="signup__form">
           <label htmlFor="input-username">Username</label>
           <input
