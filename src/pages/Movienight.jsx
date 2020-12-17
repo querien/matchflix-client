@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { movienightCreate } from "../services/protectedservices";
 import { genres } from "../genres.json";
 import { updateSingleMovie } from "../services/individualMovie";
+import QueryHandled from "../components/MovieNight/QueryHandled";
+import RoomCreated from "../components/MovieNight/RoomCreated";
+import CreateNight from "../components/MovieNight/CreateNight";
 
 const importedGenres = genres;
 const importedGenreArr = Object.keys(importedGenres[0]);
@@ -35,125 +38,54 @@ class Movienight extends Component {
 
   handleRightButton = (event) => {
     event.preventDefault();
-    this.props.handleRightButton(event);
-    if (this.props.userReady) {
-      this.redirectToWaitingRoom();
-    }
+    this.props.handleRightButton(event).then(() => {
+      if (this.props.userReady) {
+        this.redirectToWaitingRoom();
+      }
+    });
   };
 
   //The Left button only renders the next element
   handleLeftButton = (event) => {
     event.preventDefault();
-    this.props.handleLeftButton(event);
-    if (this.props.userReady) {
-      this.redirectToWaitingRoom();
-    }
+    this.props.handleLeftButton(event).then(() => {
+      if (this.props.userReady) {
+        this.redirectToWaitingRoom();
+      }
+    });
   };
 
   render() {
     if (this.props.queryHandled) {
       return (
-        <div>
-          <h1>{this.props.roomName}</h1>
-          <h2>ID: {this.props.roomID}</h2>
-          <p>Number of participants: {this.props.participants}</p>(
-          <div>
-            <img
-              src={`https://image.tmdb.org/t/p/original/${
-                this.props.movieArray[this.props.movieNumber].poster_path
-              }`}
-              alt="movie poster"
-              style={{ width: "200px" }}
-            />
-            <p>Title: {this.props.movieArray[this.props.movieNumber].title}</p>
-            <p>
-              Overview: {this.props.movieArray[this.props.movieNumber].overview}
-            </p>
-            <p>
-              Rating:{" "}
-              {this.props.movieArray[this.props.movieNumber].vote_average}
-            </p>
-            <button onClick={this.handleLeftButton}>Dislike</button>
-            <button onClick={this.handleRightButton}>Like</button>
-          </div>
-          );
-        </div>
+        // <div>
+        <QueryHandled
+          roomName={this.props.roomName}
+          roomID={this.props.roomID}
+          participants={this.props.participants}
+          movieNumber={this.props.movieNumber}
+          movieArray={this.props.movieArray}
+          handleLeftButton={this.handleLeftButton}
+          handleRightButton={this.handleRightButton}
+        />
       );
     } else {
       if (this.state.roomCreated) {
         return (
-          <div>
-            <h2> You are creating a room called {this.props.roomName} </h2>
-            <h2>
-              The number of participants will be {this.props.participants}
-            </h2>
-
-            <form onSubmit={this.handleQuery} action="">
-              <label htmlFor="genre">Select the genre</label>
-              <select
-                onChange={this.props.handleInputChange}
-                name="genre"
-                id="genre"
-              >
-                {importedGenreArr.map((element) => {
-                  return (
-                    <option key={element} value={element}>
-                      {element}
-                    </option>
-                  );
-                })}
-              </select>
-              <br />
-              <label htmlFor="numberMovies">How many movies?</label>
-              <input
-                name="numberMovies"
-                onChange={this.props.handleInputChange}
-                type="number"
-              />{" "}
-              <br />
-              <label htmlFor="imdbScore">Minimum IMDB rating</label>
-              <input
-                name="imdbScore"
-                onChange={this.props.handleInputChange}
-                type="number"
-              />{" "}
-              <br />
-              <button>Generate movies!</button>
-            </form>
-          </div>
+          <RoomCreated
+            participants={this.props.participants}
+            roomName={this.props.roomName}
+            handleQuery={this.handleQuery}
+            handleInputChange={this.props.handleInputChange}
+            importedGenreArr={importedGenreArr}
+          />
         );
       } else {
         return (
-          <div>
-            <h1>Create your movie night</h1>
-
-            <form onSubmit={this.handleCreateNight} action="">
-              <label htmlFor="roomName">Enter your room name</label>
-              <input
-                name="roomName"
-                onChange={this.props.handleInputChange}
-                type="text"
-                placeholder="Room name"
-              />
-              <br />
-              <label htmlFor="roomPassword">Enter your room password</label>
-              <input
-                name="roomPassword"
-                onChange={this.props.handleInputChange}
-                type="password"
-                placeholder="Password"
-              />
-              <br />
-              <label htmlFor="participants">Enter number of participants</label>
-              <input
-                name="participants"
-                onChange={this.props.handleInputChange}
-                type="number"
-              />
-              <br />
-              <button type="submit">Create movie night!</button>
-            </form>
-          </div>
+          <CreateNight
+            handleCreateNight={this.handleCreateNight}
+            handleInputChange={this.props.handleInputChange}
+          />
         );
       }
     }

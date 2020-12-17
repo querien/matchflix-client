@@ -7,7 +7,6 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Movienight from "./pages/Movienight";
 import ProtectedPage from "./pages/ProtectedPage";
-import Room from "./pages/Room";
 import Signup from "./pages/Signup";
 import Joinroom from "./pages/Joinroom";
 import FinalPage from "./pages/FinalPage";
@@ -17,6 +16,7 @@ import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
 import { movienightCreate } from "./services/protectedservices";
 import { updateSingleMovie } from "./services/individualMovie";
+import { removeParticipant } from "./services/individualMovie";
 import { joinRoom } from "./services/protectedservices";
 
 class App extends React.Component {
@@ -105,12 +105,12 @@ class App extends React.Component {
       console.log(_id);
       if (_id) {
         this.setState({
-          movieArray: movieArray,
-          genre: genre,
-          imdbScore: imdbScore,
+          movieArray,
+          genre,
+          imdbScore,
           roomID: _id,
-          roomName: roomName,
-          partipants: participants,
+          roomName,
+          participants,
           queryHandled: true,
         });
       } else {
@@ -160,11 +160,15 @@ class App extends React.Component {
     event.preventDefault();
     console.log("The like button has been pressed!");
     const movieQueryData = {
-      MovienightID: this.state.roomID,
+      movienightID: this.state.roomID,
       currentMovie: this.state.movieNumber,
       participantID: this.state.user._id,
       vote: 1,
     };
+
+    console.log("CURRENT MOVIE NUMBER", this.state.movieNumber);
+    console.log("MOVIE LENGTH", this.state.movieArray.length);
+
     if (this.state.movieNumber < this.state.movieArray.length - 1) {
       console.log(this.state.movieNumber < this.state.movieArray.length);
       return updateSingleMovie(movieQueryData).then((response) => {
@@ -174,24 +178,37 @@ class App extends React.Component {
         });
       });
     } else {
-      this.setState({
-        userReady: true,
+      return new Promise((resolve) => {
+        this.setState(
+          {
+            userReady: true,
+          },
+          resolve
+        );
       });
     }
   };
 
   handleLeftButton = (event) => {
     event.preventDefault();
-    if (this.state.movieNumber < this.state.movieArray.length - 1) {
-      console.log(this.state.movieNumber < this.state.movieArray.length);
-      this.setState({
-        movieNumber: this.state.movieNumber + 1,
-      });
-    } else {
-      this.setState({
-        userReady: true,
-      });
-    }
+    return new Promise((resolve) => {
+      if (this.state.movieNumber < this.state.movieArray.length - 1) {
+        console.log(this.state.movieNumber < this.state.movieArray.length);
+        this.setState(
+          {
+            movieNumber: this.state.movieNumber + 1,
+          },
+          resolve
+        );
+      } else {
+        this.setState(
+          {
+            userReady: true,
+          },
+          resolve
+        );
+      }
+    });
   };
 
   authenticate = (user) => {
@@ -200,11 +217,23 @@ class App extends React.Component {
     });
   };
 
+  // listener = () => {
+  //   window.addEventListener("load", (event) => {
+  //     console.log("Listening to the loading");
+  //     const removeUser = {
+  //       ParticipantID: this.state.user._id,
+  //       MovienightID: this.state.roomID,
+  //     };
+  //     return removeParticipant(removeUser).then((response) => {
+  //       console.log(this.state.user.username, "deleted");
+  //     });
+  //   });
+  // };
+
   render() {
     if (this.state.isLoading) {
       return <LoadingComponent />;
     }
-
     return (
       <div className="App">
         {/* // */}
@@ -227,12 +256,6 @@ class App extends React.Component {
             path={PATHS.LOGINPAGE}
             authenticate={this.authenticate}
             component={LogIn}
-          />
-          <NormalRoute
-            exact
-            path={"/room"}
-            component={Room}
-            user={this.state.user}
           />
           <ProtectedRoute
             exact
@@ -282,7 +305,7 @@ class App extends React.Component {
           />
           <ProtectedRoute
             exact
-            path={"/results/:id"}
+            path={`/results/${this.state.roomID}`}
             component={FinalPage}
             user={this.state.user}
             {...this.state}

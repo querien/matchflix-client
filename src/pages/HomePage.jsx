@@ -12,17 +12,16 @@ function HomePage(props) {
       <div className="nav__authLinks">
         {props.user ? (
           <>
-            <img src={logo} alt="Matchflix" />
-            <Link to="/protected" className="buttonClass authLink">
-              Protected Page
-            </Link>
+            <img className="logoStyling" src={logo} alt="Matchflix" />
+            <br />
+
+            <Profile user={props.user} />
             <button
               className="nav-logoutbtn buttonClass"
               onClick={props.handleLogout}
             >
               Logout
             </button>
-            <Profile user={props.user} />
           </>
         ) : (
           <>

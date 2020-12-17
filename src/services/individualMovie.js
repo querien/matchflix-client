@@ -13,3 +13,19 @@ export function updateSingleMovie(singleMovieData) {
     .post("/room/:id", singleMovieData)
     .then((response) => response);
 }
+
+export function updateFinishedUsers(participantData) {
+  console.log(participantData);
+  return settingService
+    .post(`/results/${participantData.movienightID}`, participantData)
+    .then((response) => {
+      console.log("response from the DB call", response);
+      return response;
+    });
+}
+
+export function getMovieNight(movienightID) {
+  return settingService
+    .get(`/results/${movienightID}`)
+    .then((response) => response);
+}
