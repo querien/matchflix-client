@@ -2,6 +2,8 @@ import React from "react";
 import like from "../../heart.png";
 import dislike from "../../close.png";
 import "../../pages/finalPage.css";
+import logo from "../../MATCHFLIX.png";
+import "../../pages/homepage.css";
 
 const QueryHandled = (props) => {
   const {
@@ -16,9 +18,15 @@ const QueryHandled = (props) => {
   console.log(movieArray);
   return (
     <div>
-      <h1>{roomName}</h1>
-      {/* <h2>ID: {roomID}</h2> */}
-      <p>Number of friends joining: {participants}</p>
+      <div className="topContainer">
+        <div className="subContainer">
+          <img className="logoSizingMovienight" src={logo} alt="Matchflix" />
+        </div>
+        <div className="subContainer">
+          <h3 className="movieTitle">{roomName}</h3>
+          <p className="noMargins">Number of friends joining: {participants}</p>
+        </div>
+      </div>
       <div>
         <h5>
           Movie {movieNumber + 1}/{movieArray.length}

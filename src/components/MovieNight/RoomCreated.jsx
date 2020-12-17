@@ -1,4 +1,6 @@
 import React from "react";
+import logo from "../../MATCHFLIX.png";
+import "../../pages/homepage.css";
 
 const RoomCreated = (props) => {
   const {
@@ -12,17 +14,21 @@ const RoomCreated = (props) => {
   console.log(roomPassword);
   return (
     <div>
-      <h1>Your Movie Night</h1>
-      <h2>{roomName}</h2>
+      <img className="logoSizingMovienight" src={logo} alt="Matchflix" />
+      <div className="titleContainer">
+        <h4 className="noMargins">Your Movie Night: </h4>
+        <h2 className="noMargins">{roomName}</h2>
+      </div>
       <br></br>
-      <form onSubmit={handleQuery} action="">
-
+      <form className="formStyle" onSubmit={handleQuery} action="">
         <label htmlFor="genre">Select the genre</label>
+        <br />
         <select
           onChange={handleInputChange}
           name="genre"
           id="genre"
           defaultValue="Action"
+          className="inputField"
         >
           <option key="Action" value="Action">
             Action
@@ -38,20 +44,28 @@ const RoomCreated = (props) => {
             })}
         </select>
         <br />
-        <label htmlFor="numberMovies">How many movies to choose from?</label>
+        <label className="inputLabels" htmlFor="numberMovies">
+          How many movies to choose from?
+        </label>
+        <br />
         <input
           className="inputField"
           name="numberMovies"
           onChange={handleInputChange}
           type="number"
+          placeholder="Example: 3"
         />{" "}
         <br />
-        <label htmlFor="imdbScore">Minimum movie rating (1-10)?</label>
+        <label className="inputLabels" htmlFor="imdbScore">
+          Minimum movie rating (1-10)?
+        </label>
+        <br />
         <input
           className="inputField"
           name="imdbScore"
           onChange={handleInputChange}
           type="number"
+          placeholder="Example: 7"
         />{" "}
         <br />
         <br />

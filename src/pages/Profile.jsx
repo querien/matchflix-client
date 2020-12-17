@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import logo from "../MATCHFLIX.png";
+import "./homepage.css";
 
 class Profile extends Component {
   render() {

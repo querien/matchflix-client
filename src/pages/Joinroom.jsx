@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "./homepage.css";
+import logo from "../MATCHFLIX.png";
 
 export default class Joinroom extends Component {
   handleJoinNight = (event) => {
@@ -18,6 +20,8 @@ export default class Joinroom extends Component {
   render() {
     return (
       <div>
+        <img className="logoSizing" src={logo} alt="logo" />
+        <h1>Join a room</h1>
         <form
           className="inputContainer"
           onSubmit={this.handleJoinNight}

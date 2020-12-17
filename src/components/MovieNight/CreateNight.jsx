@@ -1,11 +1,15 @@
 import React from "react";
+import logo from "../../MATCHFLIX.png";
+import "../../pages/homepage.css";
 
 const CreateNight = (props) => {
   const { handleCreateNight, handleInputChange, error } = props;
   return (
     <div>
+      <img className="logoSizingMovienight" src={logo} alt="Matchflix" />
       <h1>Create Your Movie Night</h1>
       <br></br>
+
       <form className="inputContainer" onSubmit={handleCreateNight} action="">
         <label htmlFor="participants">
           How many friends should join the voting?
@@ -47,7 +51,7 @@ const CreateNight = (props) => {
           </i>
         </h5>
         <button className="smallButton " type="submit">
-          Set The Movies Criteria
+          Select the movie characteristics
         </button>
       </form>
 
