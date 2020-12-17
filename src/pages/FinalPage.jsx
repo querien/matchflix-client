@@ -38,8 +38,6 @@ class FinalPage extends Component {
   }
 
   render() {
-    console.log("HELLO", this.state);
-    console.log("PROPS", this.props);
     if (this.state.loading) {
       return (
         <div>
@@ -49,26 +47,35 @@ class FinalPage extends Component {
         </div>
       );
     } else {
-      return (
-        <div>
-          {this.state.results.map((element, index) => {
-            return (
-              <div>
-                <h2 classname="numberStyling">0{index + 1}</h2>
-                <img
-                  src={`https://image.tmdb.org/t/p/original/${element.poster_path}`}
-                  alt="movie poster"
-                  style={{ width: "200px" }}
-                />
-                <h2> {element.title}</h2>
-                <p className="description phoneContainer">{element.overview}</p>
-                <p>Rating: {element.vote_average}</p>
-                <p>Number of votes: {element.numVotes}</p>
-              </div>
-            );
-          })}
-        </div>
-      );
+      return this.state.results.map((element, index) => {
+        return (
+          <div className="resultsContainer">
+            <div className="background">
+              <img
+                className="posterStyling"
+                src={`https://image.tmdb.org/t/p/original/${element.poster_path}`}
+                alt="movie poster"
+              />
+              <p className="layer">{index + 1}</p>
+            </div>
+
+            <table className="resultsContainerSub">
+              <tr>
+                <td className="movieTitle">{element.title}</td>
+              </tr>
+              <tr>
+                <td className="description">{element.overview}</td>
+              </tr>
+              <tr>
+                <td>Likes: {element.numVotes}</td>
+              </tr>
+              <tr>
+                <td> Rating: {element.vote_average}</td>
+              </tr>
+            </table>
+          </div>
+        );
+      });
     }
   }
 }

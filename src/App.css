@@ -21,10 +21,6 @@
   font-family: "Work Sans";
 }
 
-.img {
-  border-radius: 10px;
-}
-
 .buttonClass {
   color: #9299a4;
   padding: 10px 20px;
@@ -107,6 +103,7 @@ h5 {
 .inputField-subcontainer {
   display: flex;
   justify-content: space-between;
+  text-align: center;
 }
 
 /* The phone screen is 375px wide */
@@ -115,20 +112,7 @@ h5 {
   font-size: 12px;
 }
 
-.posterStyling {
-  border-radius: 60px;
-}
-
 .icon {
   height: 70%;
   background-color: #f8faef;
-}
-
-.description {
-  font-size: 12px;
-}
-
-.numberStyling {
-  font-family: "Abril Fatface", cursive;
-  font-size: 100px;
 }
