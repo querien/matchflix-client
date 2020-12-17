@@ -6,8 +6,10 @@ const CreateNight = (props) => {
     <div>
       <h1>Create your movie night</h1>
 
-      <form onSubmit={handleCreateNight} action="">
-        <label htmlFor="roomName">Enter your room name</label>
+      <form className="inputContainer" onSubmit={handleCreateNight} action="">
+        <label htmlFor="roomName">
+          What should be the name of your movie night?
+        </label>
         <input
           className="inputField"
           name="roomName"
@@ -15,17 +17,20 @@ const CreateNight = (props) => {
           type="text"
           placeholder="Room name"
         />
+
         <br />
-        <label htmlFor="roomPassword">Enter your room password</label>
+        <label htmlFor="roomPassword">What should be the password?</label>
         <input
           className="inputField"
           name="roomPassword"
           onChange={handleInputChange}
-          type="password"
+          type="text"
           placeholder="Password"
         />
         <br />
-        <label htmlFor="participants">Enter number of participants</label>
+        <label htmlFor="participants">
+          How many people are joining the voting?
+        </label>
         <input
           className="inputField"
           name="participants"
@@ -34,7 +39,7 @@ const CreateNight = (props) => {
         />
         <br />
         <button className="smallButton " type="submit">
-          Create movie night!
+          Go the next step
         </button>
       </form>
     </div>
