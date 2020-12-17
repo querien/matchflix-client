@@ -2,6 +2,8 @@ import React from "react";
 import like from "../../heart.png";
 import dislike from "../../close.png";
 import "../../pages/finalPage.css";
+import logo from "../../MATCHFLIX.png";
+import "../../pages/homepage.css";
 
 const QueryHandled = (props) => {
   const {
@@ -16,6 +18,7 @@ const QueryHandled = (props) => {
   console.log(movieArray);
   return (
     <div>
+      <img className="logoSizing" src={logo} alt="Matchflix" />
       <h1>{roomName}</h1>
       {/* <h2>ID: {roomID}</h2> */}
       <p>Number of friends joining: {participants}</p>
