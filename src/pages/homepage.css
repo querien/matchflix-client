@@ -52,6 +52,30 @@
   max-width: 100px;
 }
 
+.titleContainer {
+  margin: 50px auto;
+}
+
 .inputLabels {
   margin-right: 30px;
+}
+
+.noMargins {
+  margin: 0;
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: end;
+}
+
+.movieTitle {
+  margin: 0;
 }
