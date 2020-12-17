@@ -29,10 +29,12 @@ export default class Signup extends Component {
         // unsuccessful signup
         // there was a not goot singup
         // deal with it here
+        this.setState({ error: res.errorMessage });
+      } else {
+        localStorage.setItem("accessToken", res.data.accessToken);
+        this.props.authenticate(res.data.user);
+        this.props.history.push("/");
       }
-      localStorage.setItem("accessToken", res.data.accessToken);
-      this.props.authenticate(res.data.user);
-      this.props.history.push("/");
     });
   };
 
@@ -63,17 +65,16 @@ export default class Signup extends Component {
             required
             minLength="8"
           />
+          <button className="button__submit" type="submit">
+            Submit
+          </button>
 
           {this.state.error && (
             <div className="error-block">
               <p>There was an error submiting the form:</p>
-              <p>{this.state.error.message}</p>
+              <p>{this.state.error}</p>
             </div>
           )}
-
-          <button className="button__submit" type="submit">
-            Submit
-          </button>
         </form>
       </div>
     );
