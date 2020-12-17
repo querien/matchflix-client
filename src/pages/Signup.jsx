@@ -27,6 +27,8 @@ export default class Signup extends Component {
       console.log(res);
       if (!res.status) {
         // unsuccessful signup
+        // there was a not goot singup
+        // deal with it here
       }
       localStorage.setItem("accessToken", res.data.accessToken);
       this.props.authenticate(res.data.user);

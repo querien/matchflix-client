@@ -81,9 +81,9 @@ class Settings extends Component {
           <button className="smallButton" type="submit">
             Update settings
           </button>
-          <button className="smallButton" type="submit">
+          {/* <button className="smallButton" type="submit">
             Delete profile
-          </button>
+          </button> */}
         </form>
         {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : <> </>}
       </div>

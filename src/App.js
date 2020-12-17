@@ -105,12 +105,12 @@ class App extends React.Component {
       console.log(_id);
       if (_id) {
         this.setState({
-          movieArray: movieArray,
-          genre: genre,
-          imdbScore: imdbScore,
+          movieArray,
+          genre,
+          imdbScore,
           roomID: _id,
-          roomName: roomName,
-          partipants: participants,
+          roomName,
+          participants,
           queryHandled: true,
         });
       } else {
@@ -160,7 +160,7 @@ class App extends React.Component {
     event.preventDefault();
     console.log("The like button has been pressed!");
     const movieQueryData = {
-      MovienightID: this.state.roomID,
+      movienightID: this.state.roomID,
       currentMovie: this.state.movieNumber,
       participantID: this.state.user._id,
       vote: 1,
@@ -217,18 +217,18 @@ class App extends React.Component {
     });
   };
 
-  listener = () => {
-    window.addEventListener("load", (event) => {
-      console.log("Listening to the loading");
-      const removeUser = {
-        ParticipantID: this.state.user._id,
-        MovienightID: this.state.roomID,
-      };
-      return removeParticipant(removeUser).then((response) => {
-        console.log(this.state.user.username, "deleted");
-      });
-    });
-  };
+  // listener = () => {
+  //   window.addEventListener("load", (event) => {
+  //     console.log("Listening to the loading");
+  //     const removeUser = {
+  //       ParticipantID: this.state.user._id,
+  //       MovienightID: this.state.roomID,
+  //     };
+  //     return removeParticipant(removeUser).then((response) => {
+  //       console.log(this.state.user.username, "deleted");
+  //     });
+  //   });
+  // };
 
   render() {
     if (this.state.isLoading) {

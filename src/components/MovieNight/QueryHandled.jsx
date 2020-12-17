@@ -25,7 +25,9 @@ const QueryHandled = (props) => {
           style={{ width: "200px" }}
         />
         <h2> {movieArray[movieNumber].title}</h2>
-        <p className="description">{movieArray[movieNumber].overview}</p>
+        <p className="description phoneContainer">
+          {movieArray[movieNumber].overview}
+        </p>
         <p>Rating: {movieArray[movieNumber].vote_average}</p>
         <button className="likeButton">
           <img
