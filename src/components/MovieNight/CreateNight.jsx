@@ -1,7 +1,7 @@
 import React from "react";
 
 const CreateNight = (props) => {
-  const { handleCreateNight, handleInputChange } = props;
+  const { handleCreateNight, handleInputChange, error } = props;
   return (
     <div>
       <h1>Create your movie night</h1>
@@ -37,6 +37,8 @@ const CreateNight = (props) => {
           Create movie night!
         </button>
       </form>
+
+      {error ? <p>{error}</p> : <div></div>}
     </div>
   );
 };

@@ -7,6 +7,7 @@ const RoomCreated = (props) => {
     handleQuery,
     handleInputChange,
     importedGenreArr,
+    error,
   } = props;
   return (
     <div>
@@ -15,8 +16,13 @@ const RoomCreated = (props) => {
 
       <form onSubmit={handleQuery} action="">
         <label htmlFor="genre">Select the genre</label>
-        <select onChange={handleInputChange} name="genre" id="genre">
-          <option selected key="Action" value="Action">
+        <select
+          onChange={handleInputChange}
+          name="genre"
+          id="genre"
+          defaultValue="Action"
+        >
+          <option key="Action" value="Action">
             Action
           </option>
           {importedGenreArr
