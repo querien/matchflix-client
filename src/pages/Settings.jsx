@@ -5,7 +5,7 @@ class Settings extends Component {
   state = {
     username: this.props.user.username,
     password: this.props.user.password,
-    confirmPassword: "",
+    confirmPassword: this.props.user.password,
     errorMessage: "",
   };
 
@@ -16,14 +16,22 @@ class Settings extends Component {
         errorMessage: "Passwords must be the same",
       });
       return;
+    } else if (this.state.password.length < 8) {
+      this.setState({
+        errorMessage: "New password is too short",
+      });
     }
     console.log("passwords match!");
 
     const credentials = {
       id: this.props.user._id,
       username: this.state.username,
-      password: this.state.password,
     };
+
+    if (this.props.user.password !== this.state.password) {
+      credentials.password = this.state.password;
+    }
+
     settings(credentials).then((res) => {
       console.log(res);
     });
