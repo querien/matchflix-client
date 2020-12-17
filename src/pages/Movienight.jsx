@@ -56,7 +56,6 @@ class Movienight extends Component {
   render() {
     if (this.props.queryHandled) {
       return (
-        // <div>
         <QueryHandled
           roomName={this.props.roomName}
           roomID={this.props.roomID}

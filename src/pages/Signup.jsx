@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { signup } from "../services/auth";
 import "./auth.css";
+import "./homepage.css";
+import logo from "../MATCHFLIX.png";
 
 export default class Signup extends Component {
   state = {
@@ -41,21 +43,24 @@ export default class Signup extends Component {
   render() {
     return (
       <div>
-        <h1>Sign Up to Matchflix</h1>
+        <img className="logoSizing" src={logo} alt="logo" />
+        <h2>Join us!</h2>
         <form onSubmit={this.handleFormSubmission} className="auth__form">
-          <label htmlFor="input-username">Username</label>
+          <label htmlFor="input-username">Create a username</label>
           <input
+            className="inputField"
             id="input-username"
             type="text"
             name="username"
-            placeholder="Text"
+            placeholder="Username"
             value={this.state.username}
             onChange={this.handleInputChange}
             required
           />
 
-          <label htmlFor="input-password">Password</label>
+          <label htmlFor="input-password">Create a password</label>
           <input
+            className="inputField"
             id="input-password"
             type="password"
             name="password"
@@ -65,7 +70,7 @@ export default class Signup extends Component {
             required
             minLength="8"
           />
-          <button className="button__submit" type="submit">
+          <button className="buttonSignup" type="submit">
             Submit
           </button>
 
