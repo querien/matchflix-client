@@ -11,6 +11,7 @@ export default class Login extends Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
+    console.log(`${name}: ${value}`);
     this.setState({
       [name]: value,
     });
@@ -26,18 +27,21 @@ export default class Login extends Component {
     login(credentials).then((res) => {
       if (!res.status) {
         console.log(res);
-        // handle not great request
+        console.log(`The error gets here: ${res.errorMessage}`);
+        this.setState({ error: res.errorMessage });
+      } else {
+        localStorage.setItem("accessToken", res.data.accessToken);
+        this.props.authenticate(res.data.user);
+        this.props.history.push("/profile");
       }
-      localStorage.setItem("accessToken", res.data.accessToken);
-      this.props.authenticate(res.data.user);
-      this.props.history.push("/profile");
     });
   };
 
   render() {
     return (
       <div>
-        <h1>Log In</h1>
+        <h1>Log In to Matchflix</h1>
+
         <form onSubmit={this.handleFormSubmission} className="signup__form">
           <label htmlFor="input-username">Username</label>
           <input
@@ -61,18 +65,17 @@ export default class Login extends Component {
             required
             minLength="8"
           />
-
-          {this.state.error && (
-            <div className="error-block">
-              <p>There was an error submiting the form:</p>
-              <p>{this.state.error.message}</p>
-            </div>
-          )}
-
           <button className="button__submit" type="submit">
             Submit
           </button>
         </form>
+
+        {this.state.error && (
+          <div className="error-block">
+            <p>There was an error submiting the form:</p>
+            <p>{this.state.error}</p>
+          </div>
+        )}
       </div>
     );
   }

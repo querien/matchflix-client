@@ -1,11 +1,11 @@
 import React from "react";
 import like from "../../heart.png";
 import dislike from "../../close.png";
+import "../../pages/finalPage.css";
 
 const QueryHandled = (props) => {
   const {
     roomName,
-    roomID,
     participants,
     movieNumber,
     movieArray,
@@ -19,17 +19,16 @@ const QueryHandled = (props) => {
       {/* <h2>ID: {roomID}</h2> */}
       <p>Number of friends joining: {participants}</p>
       <div>
-        <p>
-          {movieNumber + 1}/{movieArray.length}
-        </p>
+        <h5>
+          Movie {movieNumber + 1}/{movieArray.length}
+        </h5>
         <img
-          classname="posterStyling"
+          className="posterStyling"
           src={`https://image.tmdb.org/t/p/original/${movieArray[movieNumber].poster_path}`}
           alt="movie poster"
-          style={{ width: "200px" }}
         />
         <h2> {movieArray[movieNumber].title}</h2>
-        <p className="description phoneContainer">
+        <p className="descriptionContainer">
           {movieArray[movieNumber].overview}
         </p>
         <p>Rating: {movieArray[movieNumber].vote_average}</p>

@@ -23,9 +23,7 @@ export default class Joinroom extends Component {
           onSubmit={this.handleJoinNight}
           action=""
         >
-          <label htmlFor="roomName">
-            Enter the name of the room you're trying to join
-          </label>
+          <label htmlFor="roomName">What is the name of the movie night?</label>
           <input
             className="inputField"
             name="roomName"
@@ -34,7 +32,7 @@ export default class Joinroom extends Component {
             placeholder="Room name"
           />
           <br />
-          <label htmlFor="roomPassword">Enter the room's password</label>
+          <label htmlFor="roomPassword">What is the password?</label>
           <input
             className="inputField"
             name="roomPassword"
@@ -44,7 +42,7 @@ export default class Joinroom extends Component {
           />
           <br />
           <button className="smallButton" type="submit">
-            Join a movie night!
+            Join a Movie Night!
           </button>
         </form>
 

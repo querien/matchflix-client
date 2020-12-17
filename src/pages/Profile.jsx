@@ -6,15 +6,19 @@ class Profile extends Component {
     return (
       <div className="flexContainer">
         <h1> Hello, {this.props.user.username}!</h1>
-
-        <Link className=" buttonClass" to={"/settings"}>
-          Edit your profile
-        </Link>
+        <br></br>
         <Link className=" buttonClass" to={"/movienight"}>
-          Create a movie night
+          <strong>
+            <span color="red">Create</span> a Movie Night
+          </strong>
         </Link>
         <Link className=" buttonClass" to={"/joinroom"}>
-          Join a movie night
+          <strong>Join a Movie Night</strong>
+        </Link>
+        <br></br>
+        <br></br>
+        <Link className=" buttonClass" to={"/settings"}>
+          Edit Your Profile
         </Link>
       </div>
     );

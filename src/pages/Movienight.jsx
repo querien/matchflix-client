@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { movienightCreate } from "../services/protectedservices";
 import { genres } from "../genres.json";
-import { updateSingleMovie } from "../services/individualMovie";
 import QueryHandled from "../components/MovieNight/QueryHandled";
 import RoomCreated from "../components/MovieNight/RoomCreated";
 import CreateNight from "../components/MovieNight/CreateNight";
