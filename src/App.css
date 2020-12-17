@@ -20,6 +20,10 @@
   font-family: "Work Sans";
 }
 
+.img {
+  border-radius: 10px;
+}
+
 .buttonClass {
   color: #9299a4;
   padding: 10px 20px;
