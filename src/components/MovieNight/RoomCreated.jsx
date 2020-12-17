@@ -15,19 +15,22 @@ const RoomCreated = (props) => {
   return (
     <div>
       <img className="logoSizingMovienight" src={logo} alt="Matchflix" />
-      <h1>Your Movie Night: {roomName}</h1>
-      <h2>{roomName}</h2>
+      <div className="titleContainer">
+        <h4 className="noMargins">Your Movie Night: </h4>
+        <h2 className="noMargins">{roomName}</h2>
+      </div>
       <br></br>
       <form className="formStyle" onSubmit={handleQuery} action="">
         <label htmlFor="genre">Select the genre</label>
+        <br />
         <select
           onChange={handleInputChange}
           name="genre"
           id="genre"
           defaultValue="Action"
+          className="inputField"
         >
           <option key="Action" value="Action">
-
             Action
           </option>
           {importedGenreArr
@@ -44,11 +47,13 @@ const RoomCreated = (props) => {
         <label className="inputLabels" htmlFor="numberMovies">
           How many movies to choose from?
         </label>
+        <br />
         <input
           className="inputField"
           name="numberMovies"
           onChange={handleInputChange}
           type="number"
+          placeholder="Example: 3"
         />{" "}
         <br />
         <label className="inputLabels" htmlFor="imdbScore">
@@ -60,6 +65,7 @@ const RoomCreated = (props) => {
           name="imdbScore"
           onChange={handleInputChange}
           type="number"
+          placeholder="Example: 7"
         />{" "}
         <br />
         <br />
