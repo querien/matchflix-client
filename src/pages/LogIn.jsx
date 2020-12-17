@@ -25,6 +25,7 @@ export default class Login extends Component {
     };
     login(credentials).then((res) => {
       if (!res.status) {
+        console.log(res);
         // handle not great request
       }
       localStorage.setItem("accessToken", res.data.accessToken);

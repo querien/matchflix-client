@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Spinner from "../components/Loading/Spinner";
+import FinalResults from "./FinalResults";
 import "./waiting.css";
-import { removeParticipant } from "../services/individualMovie";
+import { updateFinishedUsers } from "../services/individualMovie";
 import { getMovieNight } from "../services/individualMovie";
 
 //User status: User ready
@@ -16,29 +17,51 @@ class FinalPage extends Component {
   state = {
     choices: null,
     loading: true,
+    intervalId: null,
   };
 
   //Some function that renders the page at SOME interval
   //If a condition is satisfied, render results
-  componentDidMount() {
-    const removeUser = {
-      ParticipantID: this.props.user._id,
-      MovienightID: this.props.match.params.id,
-    };
-    console.log(removeUser, this.props);
-    return removeParticipant(removeUser).then((response) => {
-      console.log(response, "deleted");
-      setInterval(
-        () =>
-          getMovieNight(this.props.match.params.id).then((response) => {
-            console.log(response);
-          }),
-        10000
-      );
-
-      // HERE OU SET THE INTERVAL
-      // google for syntax of setInterval(()=> doSomething(), 5000) // need to connect this somehow with react (need to be able to clear the interval)
+  getMovieNight = () => {
+    return getMovieNight(this.props.roomID).then((response) => {
+      console.log(response.data);
+      if (response.data.length == this.props.participants) {
+        clearInterval(this.state.intervalId);
+        return this.setState({ loading: false });
+      }
     });
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.state.intervalId);
+  };
+
+  componentDidMount() {
+    const userFinished = {
+      participantID: this.props.user._id,
+      movienightID: this.props.roomID,
+    };
+
+    updateFinishedUsers(userFinished).then(() => {
+      const intervalId = setInterval(this.getMovieNight, 5000);
+      this.setState({ intervalId });
+    });
+
+    // // console.log(removeUser, this.props);
+    // return updateFinishedUsers(userFinished).then((response) => {
+    //   setInterval(
+    //     () =>
+    //       getMovieNight(this.props.roomID).then((response) => {
+    //         clearInterval();
+    //         this.setState({ loading: false });
+    //         console.log(("this is the response n the frontEnd", response));
+    //       }),
+    //     5000
+    //   );
+
+    // HERE OU SET THE INTERVAL
+    // google for syntax of setInterval(()=> doSomething(), 5000) // need to connect this somehow with react (need to be able to clear the interval)
+    //.// });
 
     // set an interval after i remove partiipants and every 5 seconds call the database to see amount of votes
     // everyone will do this because that is when the component mounts
@@ -52,6 +75,8 @@ class FinalPage extends Component {
   // else clear interval, update state to show right data
 
   render() {
+    console.log("HELLO", this.state);
+    console.log("PROPS", this.props);
     if (this.state.loading) {
       return (
         <div>
@@ -59,6 +84,8 @@ class FinalPage extends Component {
           <Spinner />
         </div>
       );
+    } else {
+      return <p>All the users have voted, this is the outcome!</p>;
     }
   }
 }

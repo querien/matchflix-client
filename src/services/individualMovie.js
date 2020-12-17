@@ -14,13 +14,18 @@ export function updateSingleMovie(singleMovieData) {
     .then((response) => response);
 }
 
-export function removeParticipant(participantData) {
+export function updateFinishedUsers(participantData) {
   console.log(participantData);
   return settingService
-    .post("/results/:id", participantData)
-    .then((response) => response.data);
+    .post(`/results/${participantData.movienightID}`, participantData)
+    .then((response) => {
+      console.log("response from the DB call", response);
+      return response;
+    });
 }
 
-export function getMovieNight(id) {
-  return settingService.get(`/results/${id}`).then((response) => response.data);
+export function getMovieNight(movienightID) {
+  return settingService
+    .get(`/results/${movienightID}`)
+    .then((response) => response);
 }
