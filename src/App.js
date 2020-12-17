@@ -26,13 +26,14 @@ class App extends React.Component {
     roomPassword: "",
     movieArray: [],
     numberMovies: 0,
-    genre: "",
+    genre: "Action",
     imdbScore: 0,
     participants: 0,
     roomID: "",
     joinErr: "",
     movieNumber: 0,
     userReady: false,
+    error: null,
   };
 
   componentDidMount = () => {

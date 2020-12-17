@@ -14,6 +14,17 @@ class Movienight extends Component {
 
   handleCreateNight = (event) => {
     event.preventDefault();
+    console.log(event);
+    if (this.props.roomName === "" || this.props.roomPassword === "") {
+      return this.setState({
+        error: "The necessary fields must not be empty",
+      });
+    }
+    if (this.props.participants < 1) {
+      return this.setState({
+        error: "There needs to be at least one participant",
+      });
+    }
     this.setState({
       roomCreated: true,
     });
@@ -69,20 +80,26 @@ class Movienight extends Component {
     } else {
       if (this.state.roomCreated) {
         return (
-          <RoomCreated
-            participants={this.props.participants}
-            roomName={this.props.roomName}
-            handleQuery={this.handleQuery}
-            handleInputChange={this.props.handleInputChange}
-            importedGenreArr={importedGenreArr}
-          />
+          <div>
+            <RoomCreated
+              participants={this.props.participants}
+              roomName={this.props.roomName}
+              handleQuery={this.handleQuery}
+              handleInputChange={this.props.handleInputChange}
+              importedGenreArr={importedGenreArr}
+            />
+            {this.props.error ? <p>{this.props.error}</p> : <div></div>}
+          </div>
         );
       } else {
         return (
-          <CreateNight
-            handleCreateNight={this.handleCreateNight}
-            handleInputChange={this.props.handleInputChange}
-          />
+          <div>
+            <CreateNight
+              handleCreateNight={this.handleCreateNight}
+              handleInputChange={this.props.handleInputChange}
+            />
+            {this.state.error ? <p>{this.state.error}</p> : <div></div>}
+          </div>
         );
       }
     }

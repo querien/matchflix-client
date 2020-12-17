@@ -3,7 +3,7 @@ import logo from "../../MATCHFLIX.png";
 import "../../pages/homepage.css";
 
 const CreateNight = (props) => {
-  const { handleCreateNight, handleInputChange } = props;
+  const { handleCreateNight, handleInputChange, error } = props;
   return (
     <div>
       <img className="logoSizingMovienight" src={logo} alt="Matchflix" />
@@ -54,6 +54,8 @@ const CreateNight = (props) => {
           Select the movie characteristics
         </button>
       </form>
+
+      {error ? <p>{error}</p> : <div></div>}
     </div>
   );
 };

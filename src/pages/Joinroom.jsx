@@ -29,7 +29,7 @@ export default class Joinroom extends Component {
             name="roomName"
             onChange={this.props.handleInputChange}
             type="text"
-            placeholder="Room name"
+            placeholder="Ask the host"
           />
           <br />
           <label htmlFor="roomPassword">What is the password?</label>
@@ -37,12 +37,12 @@ export default class Joinroom extends Component {
             className="inputField"
             name="roomPassword"
             onChange={this.props.handleInputChange}
-            placeholder="Enter password"
+            placeholder="Ask the host"
             type="password"
           />
           <br />
           <button className="smallButton" type="submit">
-            Join a Movie Night!
+            Start Voting!
           </button>
         </form>
 

@@ -13,6 +13,7 @@ const QueryHandled = (props) => {
     movieArray,
     handleLeftButton,
     handleRightButton,
+    error,
   } = props;
   console.log(movieArray);
   return (
@@ -52,6 +53,7 @@ const QueryHandled = (props) => {
           />
         </button>
       </div>
+      {error ? <p>{error}</p> : <div></div>}
     </div>
   );
 };
