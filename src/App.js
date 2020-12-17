@@ -178,24 +178,37 @@ class App extends React.Component {
         });
       });
     } else {
-      this.setState({
-        userReady: true,
+      return new Promise((resolve) => {
+        this.setState(
+          {
+            userReady: true,
+          },
+          resolve
+        );
       });
     }
   };
 
   handleLeftButton = (event) => {
     event.preventDefault();
-    if (this.state.movieNumber < this.state.movieArray.length) {
-      console.log(this.state.movieNumber < this.state.movieArray.length);
-      this.setState({
-        movieNumber: this.state.movieNumber + 1,
-      });
-    } else {
-      this.setState({
-        userReady: true,
-      });
-    }
+    return new Promise((resolve) => {
+      if (this.state.movieNumber < this.state.movieArray.length - 1) {
+        console.log(this.state.movieNumber < this.state.movieArray.length);
+        this.setState(
+          {
+            movieNumber: this.state.movieNumber + 1,
+          },
+          resolve
+        );
+      } else {
+        this.setState(
+          {
+            userReady: true,
+          },
+          resolve
+        );
+      }
+    });
   };
 
   authenticate = (user) => {
