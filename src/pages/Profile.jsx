@@ -5,7 +5,7 @@ class Profile extends Component {
   render() {
     return (
       <div className="flexContainer">
-        <h1> Welcome back, {this.props.user.username}!</h1>
+        <h1> Hello, {this.props.user.username}!</h1>
 
         <Link className=" buttonClass" to={"/settings"}>
           Edit your profile
