@@ -16,7 +16,6 @@ import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
 import { movienightCreate } from "./services/protectedservices";
 import { updateSingleMovie } from "./services/individualMovie";
-import { removeParticipant } from "./services/individualMovie";
 import { joinRoom } from "./services/protectedservices";
 
 class App extends React.Component {
@@ -93,7 +92,7 @@ class App extends React.Component {
       roomPassword: this.state.roomPassword,
     };
     return joinRoom(roomData).then((response) => {
-      console.log("the response in app.js,", response);
+      //console.log("the response in app.js,", response);
       const {
         movieArray,
         genre,
