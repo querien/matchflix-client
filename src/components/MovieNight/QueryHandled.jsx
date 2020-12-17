@@ -5,7 +5,6 @@ import dislike from "../../close.png";
 const QueryHandled = (props) => {
   const {
     roomName,
-    roomID,
     participants,
     movieNumber,
     movieArray,

@@ -16,7 +16,6 @@ import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
 import { movienightCreate } from "./services/protectedservices";
 import { updateSingleMovie } from "./services/individualMovie";
-import { removeParticipant } from "./services/individualMovie";
 import { joinRoom } from "./services/protectedservices";
 
 class App extends React.Component {
@@ -158,24 +157,42 @@ class App extends React.Component {
 
   handleRightButton = (event) => {
     event.preventDefault();
-    console.log("The like button has been pressed!");
+    //console.log("The like button has been pressed!");
     const movieQueryData = {
       movienightID: this.state.roomID,
       currentMovie: this.state.movieNumber,
       participantID: this.state.user._id,
       vote: 1,
     };
-
-    console.log("CURRENT MOVIE NUMBER", this.state.movieNumber);
-    console.log("MOVIE LENGTH", this.state.movieArray.length);
-
-    if (this.state.movieNumber < this.state.movieArray.length - 1) {
-      console.log(this.state.movieNumber < this.state.movieArray.length);
-      return updateSingleMovie(movieQueryData).then((response) => {
-        console.log("This is the response in the JSX file", response);
+    return updateSingleMovie(movieQueryData).then((response) => {
+      if (this.state.movieNumber < this.state.movieArray.length - 1) {
         this.setState({
           movieNumber: this.state.movieNumber + 1,
         });
+      } else {
+        return new Promise((resolve) => {
+          this.setState(
+            {
+              userReady: true,
+            },
+            resolve
+          );
+        });
+      }
+    });
+  };
+
+  handleLeftButton = (event) => {
+    event.preventDefault();
+    if (this.state.movieNumber < this.state.movieArray.length - 1) {
+      console.log(this.state.movieNumber < this.state.movieArray.length);
+      return new Promise((resolve) => {
+        this.setState(
+          {
+            movieNumber: this.state.movieNumber + 1,
+          },
+          resolve
+        );
       });
     } else {
       return new Promise((resolve) => {
@@ -189,46 +206,11 @@ class App extends React.Component {
     }
   };
 
-  handleLeftButton = (event) => {
-    event.preventDefault();
-    return new Promise((resolve) => {
-      if (this.state.movieNumber < this.state.movieArray.length - 1) {
-        console.log(this.state.movieNumber < this.state.movieArray.length);
-        this.setState(
-          {
-            movieNumber: this.state.movieNumber + 1,
-          },
-          resolve
-        );
-      } else {
-        this.setState(
-          {
-            userReady: true,
-          },
-          resolve
-        );
-      }
-    });
-  };
-
   authenticate = (user) => {
     this.setState({
       user,
     });
   };
-
-  // listener = () => {
-  //   window.addEventListener("load", (event) => {
-  //     console.log("Listening to the loading");
-  //     const removeUser = {
-  //       ParticipantID: this.state.user._id,
-  //       MovienightID: this.state.roomID,
-  //     };
-  //     return removeParticipant(removeUser).then((response) => {
-  //       console.log(this.state.user.username, "deleted");
-  //     });
-  //   });
-  // };
 
   render() {
     if (this.state.isLoading) {
